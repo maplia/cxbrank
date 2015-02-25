@@ -1,0 +1,11 @@
+<%= form_tag :controller => 'login', :action => 'auth' do %>
+  <label>
+    ユーザID: <%= text_field_tag :userid, '', {:size => 5, :maxlength => 5} %>
+  </label>
+  <br />
+  <label>
+    パスワード: <%= password_field_tag :password, '', {:size => 10, :maxlength => 40} %>
+  </label>
+  <br />
+  <%= submit_tag 'ログイン' %>
+<% end %>
