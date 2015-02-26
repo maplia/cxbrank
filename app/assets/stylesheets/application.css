@@ -11,3 +11,8 @@
  *= require_self
  *= require_tree .
  */
+
+@import url("http://cxbrank.maplia.jp/style/skill.css");
+body {
+  font-size: 80%;
+}

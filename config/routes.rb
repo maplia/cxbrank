@@ -3,4 +3,6 @@ Cxbrank::Application.routes.draw do
   get "login" => 'login#index'
   post "login/auth"
   get "skills" => 'skills#index'
+
+  resources :musics, :only => ['index']
 end

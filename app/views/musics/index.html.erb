@@ -1,0 +1,24 @@
+<script type="text/javascript">
+$(document).ready(function() {
+//  $('table_bonus').tablesorter({sortList: [[0, 0],]});
+});
+</script>
+
+<h1><%= @page_title %></h1>
+<p>間違いがあれば、ご指摘ください。確認の上、修正を行います。</p>
+
+<table id="table_bonus" class="tablesorter music_list">
+  <thead>
+    <tr>
+      <th>#</th><th>タイトル</th>
+      <th>STD<br/>Lv</th><th>STD<br/>Notes</th>
+      <th>HRD<br/>Lv</th><th>HRD<br/>Notes</th>
+      <th>MAS<br/>Lv</th><th>MAS<br/>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @musics.each do |music| %>
+      <%= render music %>
+    <% end %>
+  </tbody>
+</table>

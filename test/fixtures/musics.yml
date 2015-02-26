@@ -1,0 +1,89 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+wannabeyourspecial:
+  id: 1
+  number: 1
+  text_id: wannabeyourspecial
+  title: Wanna Be Your Special
+  sortkey: wanna be your special
+  difficulty1_level: 8.0
+  difficulty1_notes: 89
+  difficulty2_level: 20.0
+  difficulty2_notes: 163
+  difficulty3_level: 34.0
+  difficulty3_notes: 230
+  added_at: 2013-12-02 04:00
+
+touchofgold:
+  id: 2
+  number: 2
+  text_id: touchofgold
+  title: Touch Of Gold
+  sortkey: touchofgold
+  difficulty1_level: 9.0
+  difficulty1_notes: 94
+  difficulty2_level: 22.0
+  difficulty2_notes: 199
+  difficulty3_level: 36.0
+  difficulty3_notes: 276
+  added_at: 2013-12-02 04:00
+
+amenootoganijiwoyobu:
+  id: 3
+  number: 3
+  text_id: amenootoganijiwoyobu
+  title: 雨の音が虹を呼ぶ
+  sortkey: アメノオトガニジヲヨブ
+  difficulty1_level: 12.0
+  difficulty1_notes: 91
+  difficulty2_level: 26.0
+  difficulty2_notes: 183
+  difficulty3_level: 41.0
+  difficulty3_notes: 262
+  added_at: 2013-12-02 04:00
+
+freakwithme:
+  id: 4
+  number: 18
+  text_id: freakwithme
+  title: Freak With Me
+  sortkey: freak with me
+  difficulty1_level: 20.0
+  difficulty1_notes: 171
+  difficulty2_level: 42
+  difficulty2_notes: 332
+  difficulty3_level: 56.0
+  difficulty3_notes: 390
+  added_at: 2013-12-02 04:00
+
+azitate:
+  id: 5
+  number: 24
+  text_id: azitate
+  title: Azitate
+  sortkey: azitate
+  difficulty1_level: 22.0
+  difficulty1_notes: 204
+  difficulty2_level: 55.0
+  difficulty2_notes: 329
+  difficulty3_level: 70.0
+  difficulty3_notes: 536
+  added_at: 2013-12-02 04:00
+
+diamondskin:
+  id: 6
+  number: 33
+  text_id: diamondskin
+  title: DIAMOND SKIN
+  sortkey: diamondskin
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00

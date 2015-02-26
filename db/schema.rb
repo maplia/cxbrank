@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225142346) do
+ActiveRecord::Schema.define(version: 20150225163036) do
+
+  create_table "musics", force: true do |t|
+    t.integer  "number"
+    t.string   "text_id"
+    t.string   "title"
+    t.string   "sortkey"
+    t.float    "difficulty1_level"
+    t.float    "difficulty2_level"
+    t.float    "difficulty3_level"
+    t.float    "difficulty4_level"
+    t.float    "difficulty5_level"
+    t.integer  "difficulty1_notes"
+    t.integer  "difficulty2_notes"
+    t.integer  "difficulty3_notes"
+    t.integer  "difficulty4_notes"
+    t.integer  "difficulty5_notes"
+    t.datetime "added_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username",         null: false
