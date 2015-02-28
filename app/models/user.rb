@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
   def self.authenticate(id, password)
-    return self.where(:id => id.to_i, :password => Digest::SHA1.hexdigest(password)).first
+    return self.find_by_id_and_password(id.to_i, Digest::SHA1.hexdigest(password))
   end
 end

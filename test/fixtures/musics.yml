@@ -5,7 +5,6 @@
 # below each fixture, per the syntax in the comments below
 #
 wannabeyourspecial:
-  id: 1
   number: 1
   text_id: wannabeyourspecial
   title: Wanna Be Your Special
@@ -19,7 +18,6 @@ wannabeyourspecial:
   added_at: 2013-12-02 04:00
 
 touchofgold:
-  id: 2
   number: 2
   text_id: touchofgold
   title: Touch Of Gold
@@ -33,7 +31,6 @@ touchofgold:
   added_at: 2013-12-02 04:00
 
 amenootoganijiwoyobu:
-  id: 3
   number: 3
   text_id: amenootoganijiwoyobu
   title: 雨の音が虹を呼ぶ
@@ -47,7 +44,6 @@ amenootoganijiwoyobu:
   added_at: 2013-12-02 04:00
 
 freakwithme:
-  id: 4
   number: 18
   text_id: freakwithme
   title: Freak With Me
@@ -61,7 +57,6 @@ freakwithme:
   added_at: 2013-12-02 04:00
 
 azitate:
-  id: 5
   number: 24
   text_id: azitate
   title: Azitate
@@ -75,11 +70,88 @@ azitate:
   added_at: 2013-12-02 04:00
 
 diamondskin:
-  id: 6
   number: 33
   text_id: diamondskin
   title: DIAMOND SKIN
-  sortkey: diamondskin
+  sortkey: diamond skin
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+kimitomusic:
+  number: 4
+  text_id: kimitomusic
+  title: キミとMUSIC
+  sortkey: キミトmusic
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+landingonthemoon:
+  number: 5
+  text_id: landingonthemoon
+  title: Landing on the moon
+  sortkey: landing on the moon
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+aqualight:
+  number: 6
+  text_id: aqualight
+  title: Aqualight
+  sortkey: aqualight
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+wanyowanyo:
+  number: 7
+  text_id: wanyowanyo
+  title: Wanyo Wanyo
+  sortkey: wanyo wanyo
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+lotuslove:
+  number: 8
+  text_id: lotuslove
+  title: Lotus Love
+  sortkey: lotus love
+  difficulty1_level: 10.0
+  difficulty1_notes: 73
+  difficulty2_level: 17.0
+  difficulty2_notes: 109
+  difficulty3_level: 25.0
+  difficulty3_notes: 187
+  added_at: 2013-12-02 04:00
+
+dirtymouth:
+  number: 9
+  text_id: dirtymouth
+  title: Dirty Mouth
+  sortkey: dirty mouth
   difficulty1_level: 10.0
   difficulty1_notes: 73
   difficulty2_level: 17.0

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225163036) do
+ActiveRecord::Schema.define(version: 20150227232109) do
+
+  create_table "bonus_musics", force: true do |t|
+    t.integer  "music_id"
+    t.datetime "period_start"
+    t.datetime "period_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "musics", force: true do |t|
     t.integer  "number"

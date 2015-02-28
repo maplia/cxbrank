@@ -1,0 +1,20 @@
+<div class="unit">
+  <h2><%= block[:title] %></h2>
+  <div class="subunit">
+    <table id="<%= block[:id] %>" class="music_list">
+      <thead>
+        <tr>
+          <th>#</th><th>タイトル</th>
+          <th>STD<br/>Lv</th><th>STD<br/>Notes</th>
+          <th>HRD<br/>Lv</th><th>HRD<br/>Notes</th>
+          <th>MAS<br/>Lv</th><th>MAS<br/>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% block[:musics].each do |music| %>
+          <%= render 'music', :music => music %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
