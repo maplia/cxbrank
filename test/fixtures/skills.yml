@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+skill_dirtymouth:
+  user_id: 1
+  music: dirtymouth
+  difficulty3_status: 2
+  difficulty3_rate: 100
+  difficulty3_rp: 50.0
+  best_rp: 50.0

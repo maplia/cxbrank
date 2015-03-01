@@ -10,7 +10,8 @@ class BonusMusicTest < ActiveSupport::TestCase
     bonus_201401_ids = [
       bonus_musics(:bonus201401_1).music_id,
       bonus_musics(:bonus201401_2).music_id,
-      bonus_musics(:bonus201401_3).music_id
+      bonus_musics(:bonus201401_3).music_id,
+      bonus_musics(:bonus201401_4).music_id
     ]
 
     result = BonusMusic.current
@@ -31,7 +32,8 @@ class BonusMusicTest < ActiveSupport::TestCase
     bonus_201401_ids = [
       bonus_musics(:bonus201401_1).music_id,
       bonus_musics(:bonus201401_2).music_id,
-      bonus_musics(:bonus201401_3).music_id
+      bonus_musics(:bonus201401_3).music_id,
+      bonus_musics(:bonus201401_4).music_id
     ]
 
     result = BonusMusic.past(Time.parse('2013-12-15 04:00'))

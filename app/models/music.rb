@@ -1,11 +1,31 @@
 class Music < ActiveRecord::Base
-  def self.bonus_musics
-    bonus_musics = BonusMusic.current
-    return self.where("id in (#{bonus_musics.to_sql})").order('number')
+  attr_accessor :bonus
+
+  def self.all_with_bonus_flag(datetime=nil)
+    bonus_musics = BonusMusic.past(datetime)
+    musics = self.all.order('number')
+
+    musics.each do |music|
+      bonus_musics.each do |bonus|
+        if music.id == bonus.music_id
+          music.bonus = true
+          break
+        end
+      end
+    end
+
+    return musics
   end
 
-  def self.regular_musics
-    bonus_musics = BonusMusic.current
-    return self.where("id not in (#{bonus_musics.to_sql})").order('number')
+  def self.bonus_musics(datetime=nil)
+    return self.all_with_bonus_flag(datetime).delete_if do |music|
+      !music.bonus
+    end
+  end
+
+  def self.regular_musics(datetime=nil)
+    return self.all_with_bonus_flag(datetime).delete_if do |music|
+      music.bonus
+    end
   end
 end

@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227232109) do
+ActiveRecord::Schema.define(version: 20150228025442) do
 
   create_table "bonus_musics", force: true do |t|
-    t.integer  "music_id"
-    t.datetime "period_start"
-    t.datetime "period_end"
+    t.integer  "music_id",     null: false
+    t.datetime "period_start", null: false
+    t.datetime "period_end",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "musics", force: true do |t|
-    t.integer  "number"
-    t.string   "text_id"
-    t.string   "title"
-    t.string   "sortkey"
+    t.integer  "number",            null: false
+    t.string   "text_id",           null: false
+    t.string   "title",             null: false
+    t.string   "sortkey",           null: false
     t.float    "difficulty1_level"
     t.float    "difficulty2_level"
     t.float    "difficulty3_level"
@@ -36,7 +36,56 @@ ActiveRecord::Schema.define(version: 20150227232109) do
     t.integer  "difficulty3_notes"
     t.integer  "difficulty4_notes"
     t.integer  "difficulty5_notes"
-    t.datetime "added_at"
+    t.datetime "added_at",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "skills", force: true do |t|
+    t.integer  "user_id",              null: false
+    t.integer  "music_id",             null: false
+    t.integer  "difficulty1_status"
+    t.boolean  "difficulty1_locked"
+    t.integer  "difficulty1_rate"
+    t.float    "difficulty1_rp"
+    t.integer  "difficulty1_grade"
+    t.integer  "difficulty1_combo"
+    t.boolean  "difficulty1_ultimate"
+    t.boolean  "difficulty1_score"
+    t.integer  "difficulty2_status"
+    t.boolean  "difficulty2_locked"
+    t.integer  "difficulty2_rate"
+    t.float    "difficulty2_rp"
+    t.integer  "difficulty2_grade"
+    t.integer  "difficulty2_combo"
+    t.boolean  "difficulty2_ultimate"
+    t.boolean  "difficulty2_score"
+    t.integer  "difficulty3_status"
+    t.boolean  "difficulty3_locked"
+    t.integer  "difficulty3_rate"
+    t.float    "difficulty3_rp"
+    t.integer  "difficulty3_grade"
+    t.integer  "difficulty3_combo"
+    t.boolean  "difficulty3_ultimate"
+    t.boolean  "difficulty3_score"
+    t.integer  "difficulty4_status"
+    t.boolean  "difficulty4_locked"
+    t.integer  "difficulty4_rate"
+    t.float    "difficulty4_rp"
+    t.integer  "difficulty4_grade"
+    t.integer  "difficulty4_combo"
+    t.boolean  "difficulty4_ultimate"
+    t.boolean  "difficulty4_score"
+    t.integer  "difficulty5_status"
+    t.boolean  "difficulty5_locked"
+    t.integer  "difficulty5_rate"
+    t.float    "difficulty5_rp"
+    t.integer  "difficulty5_grade"
+    t.integer  "difficulty5_combo"
+    t.boolean  "difficulty5_ultimate"
+    t.boolean  "difficulty5_score"
+    t.string   "comment"
+    t.float    "best_rp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,10 +1,10 @@
 class CreateMusics < ActiveRecord::Migration
   def change
     create_table :musics do |t|
-      t.integer :number
-      t.string :text_id
-      t.string :title
-      t.string :sortkey
+      t.integer :number, :null => false
+      t.string :text_id, :null => false
+      t.string :title, :null => false
+      t.string :sortkey, :null => false
       t.float :difficulty1_level
       t.float :difficulty2_level
       t.float :difficulty3_level
@@ -15,7 +15,7 @@ class CreateMusics < ActiveRecord::Migration
       t.integer :difficulty3_notes
       t.integer :difficulty4_notes
       t.integer :difficulty5_notes
-      t.datetime :added_at
+      t.datetime :added_at, :null => false
 
       t.timestamps
     end

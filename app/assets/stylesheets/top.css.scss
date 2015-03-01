@@ -1,3 +1,13 @@
 // Place all the styles related to the top controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.sidebar * ul {
+  padding-left: 0;
+}
+
+div.sidebar * ul li {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}

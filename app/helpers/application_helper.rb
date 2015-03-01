@@ -7,6 +7,10 @@ module ApplicationHelper
     end
   end
 
+  def h1_title(page_title=nil)
+    return page_title || 'CxB RankPoint Simulator'
+  end
+
   def sprintf_for_level(level)
     return sprintf('%.1f', level)
   end
