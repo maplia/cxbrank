@@ -10,6 +10,7 @@ class Skill < ActiveRecord::Base
       registered = false
       skills.each do |skill|
         if skill.music.id == music.id
+          skill.music.bonus = music.bonus
           registered = true
           break
         end
@@ -25,7 +26,8 @@ class Skill < ActiveRecord::Base
   def self.empty_skill(music)
     return self.new({
       :music => music,
-      :music_id => music.id
+      :music_id => music.id,
+      :best_rp => 0.00
     })
   end
 

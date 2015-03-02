@@ -1,6 +1,11 @@
 <tr>
   <th><%= music.number %></th>
-  <td class="title text"><%= music.title %></td>
+  <td class="title text">
+    <%= music.title %>
+    <% if music.subtitle %>
+      <small><%= music.subtile %></small>
+    <% end %>
+  </td>
   <td class="bsc number"><%= sprintf_for_level(music.difficulty1_level) %></td>
   <td class="bsc number"><%= music.difficulty1_notes %></td>
   <td class="adv number"><%= sprintf_for_level(music.difficulty2_level) %></td>

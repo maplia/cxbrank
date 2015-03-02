@@ -4,6 +4,7 @@ class CreateMusics < ActiveRecord::Migration
       t.integer :number, :null => false
       t.string :text_id, :null => false
       t.string :title, :null => false
+      t.string :subtitle
       t.string :sortkey, :null => false
       t.float :difficulty1_level
       t.float :difficulty2_level

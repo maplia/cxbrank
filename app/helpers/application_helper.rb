@@ -14,4 +14,8 @@ module ApplicationHelper
   def sprintf_for_level(level)
     return sprintf('%.1f', level)
   end
+
+  def sprintf_for_rp(rp)
+    return sprintf('%.2f', rp)
+  end
 end

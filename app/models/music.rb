@@ -16,16 +16,4 @@ class Music < ActiveRecord::Base
 
     return musics
   end
-
-  def self.bonus_musics(datetime=nil)
-    return self.all_with_bonus_flag(datetime).delete_if do |music|
-      !music.bonus
-    end
-  end
-
-  def self.regular_musics(datetime=nil)
-    return self.all_with_bonus_flag(datetime).delete_if do |music|
-      music.bonus
-    end
-  end
 end

@@ -1,0 +1,17 @@
+<div class="unit">
+  <h2><%= block[:title] %></h2>
+  <div class="subunit">
+    <table id="<%= block[:id] %>" class="skill_list">
+      <thead>
+        <tr>
+          <th>#</th><th>タイトル</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% block[:skills].each do |skill| %>
+          <%= render 'skill', :skill => skill %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

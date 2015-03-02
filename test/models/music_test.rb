@@ -14,25 +14,7 @@ class MusicTest < ActiveSupport::TestCase
       end
     end
 
-    assert_equal bonus_musics.size, BonusMusic.current.count
-    assert_equal regular_musics.size, Music.all.count - BonusMusic.current.count
-  end
-
-  test "bonus_musics" do
-    result = Music.bonus_musics
-    assert_equal result.count, BonusMusic.current.count
-
-    time = Time.parse('2013-12-15 4:00')
-    result = Music.bonus_musics(time)
-    assert_equal result.count, BonusMusic.past(time).count
-  end
-
-  test "regular_musics" do
-    result = Music.regular_musics
-    assert_equal result.count, Music.all.count - BonusMusic.current.count
-
-    time = Time.parse('2013-12-15 4:00')
-    result = Music.regular_musics(time)
-    assert_equal result.count, Music.all.count - BonusMusic.past(time).count
+    assert_equal BonusMusic.current.count, bonus_musics.size
+    assert_equal Music.all.count - BonusMusic.current.count, regular_musics.size
   end
 end

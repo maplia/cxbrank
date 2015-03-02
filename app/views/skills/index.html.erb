@@ -1,2 +1,27 @@
-<h1>Skills#index</h1>
-<p>Find me in app/views/skills/index.html.erb</p>
+<h1><%= @page_title %></h1>
+
+<div class="unit">
+  <h2>ランクポイント</h2>
+  <div class="subunit">
+    <table class="sp">
+      <thead>
+        <tr>
+          <th class="part"><%= @blocks[:bonus][:title] %></th>
+          <th class="part"><%= @blocks[:regular][:title] %></th>
+          <th class="sum">合計RP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:rp]) %></td>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:regular][:rp]) %></td>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:rp] + @blocks[:regular][:rp]) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<% @blocks.each_value do |block| %>
+  <%= render 'block', :block => block %>
+<% end %>
