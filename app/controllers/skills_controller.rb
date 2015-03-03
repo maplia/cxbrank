@@ -3,10 +3,10 @@ class SkillsController < ApplicationController
     @page_title = "#{session[:user].username}さんのランクポイント表"
     @blocks = {
       :bonus => {
-        id: 'bonus', title: Settings.block_title.bonus, skills: [], sum_rp: 0.00
+        id: LIST_BLOCKS[:bonus][:id], title: LIST_BLOCKS[:bonus][:title], skills: [], sum_rp: 0.00,
       },
       :regular => {
-        id: 'regular', title: Settings.block_title.regular, skills: [], sum_rp: 0.00
+        id: LIST_BLOCKS[:regular][:id], title: LIST_BLOCKS[:regular][:title], skills: [], sum_rp: 0.00,
       },
     }
 

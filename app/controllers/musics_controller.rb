@@ -3,10 +3,10 @@ class MusicsController < ApplicationController
     @page_title = '登録曲リスト'
     @blocks = {
       :bonus => {
-        id: 'bonus', title: Settings.block_title.bonus, musics: []
+        id: LIST_BLOCKS[:bonus][:id], title: LIST_BLOCKS[:bonus][:title], musics: []
       },
       :regular => {
-        id: 'regular', title: Settings.block_title.regular, musics: []
+        id: LIST_BLOCKS[:regular][:title], title: LIST_BLOCKS[:regular][:title], musics: []
       },
     }
 

@@ -1,18 +1,30 @@
 module ApplicationHelper
   def header_title(page_title=nil)
     if page_title
-      return "#{page_title} - #{Settings.app_name}"
+      return "#{page_title} - #{APP_INFO[:name]}"
     else
-      return Settings.app_name
+      return APP_INFO[:name]
     end
   end
 
   def h1_title(page_title=nil)
-    return page_title || Settings.app_name
+    return page_title || APP_INFO[:name]
   end
 
   def sprintf_for_level(level)
-    return sprintf('%.1f', level)
+    if level
+      return sprintf('%.1f', level)
+    else
+      return '-'
+    end
+  end
+
+  def sprintf_for_notes(notes)
+    if notes
+      return sprintf('%d', notes)
+    else
+      return '-'
+    end
   end
 
   def sprintf_for_rp(rp)
