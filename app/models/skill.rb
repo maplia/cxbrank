@@ -28,6 +28,14 @@ class Skill < ActiveRecord::Base
     })
   end
 
+  def status(difficulty)
+    return self["#{difficulty}_status".to_sym]
+  end
+
+  def notes(difficulty)
+    return self["#{difficulty}_notes".to_sym]
+  end
+
   def <=>(other)
     return self.best_rp <=> other.best_rp
   end

@@ -5,9 +5,10 @@
       <thead>
         <tr>
           <th>#</th><th>タイトル</th>
-          <th class="bsc">STD<br/>Lv</th><th class="bsc">STD<br/>Notes</th>
-          <th class="adv">HRD<br/>Lv</th><th class="adv">HRD<br/>Notes</th>
-          <th class="ext">MAS<br/>Lv</th><th class="ext">MAS<br/>Notes</th>
+          <% DIFFICULTIES.each do |difficulty, data| %>
+            <th class="<%= data[:css_class] %>"><%= data[:abbr] %><br/>Lv</th>
+            <th class="<%= data[:css_class] %>"><%= data[:abbr] %><br/>Notes</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>

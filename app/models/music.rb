@@ -11,4 +11,12 @@ class Music < ActiveRecord::Base
 
     return musics
   end
+
+  def level(difficulty)
+    return self["#{difficulty}_level".to_sym]
+  end
+
+  def notes(difficulty)
+    return self["#{difficulty}_notes".to_sym]
+  end
 end
