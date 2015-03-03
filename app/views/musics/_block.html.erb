@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <% block[:musics].each do |music| %>
-          <%= render 'music', :music => music %>
+          <%= render 'music', music: music %>
         <% end %>
       </tbody>
     </table>

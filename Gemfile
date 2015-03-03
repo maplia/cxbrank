@@ -45,4 +45,4 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'jquery-tablesorter'
+gem 'rails_config'

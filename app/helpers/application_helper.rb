@@ -1,14 +1,14 @@
 module ApplicationHelper
   def header_title(page_title=nil)
     if page_title
-      return "#{page_title} - CxB RankPoint Simulator"
+      return "#{page_title} - #{Settings.app_name}"
     else
-      return 'CxB RankPoint Simulator'
+      return Settings.app_name
     end
   end
 
   def h1_title(page_title=nil)
-    return page_title || 'CxB RankPoint Simulator'
+    return page_title || Settings.app_name
   end
 
   def sprintf_for_level(level)

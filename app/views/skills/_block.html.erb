@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <% block[:skills].each do |skill| %>
-          <%= render 'skill', :skill => skill %>
+          <%= render 'skill', skill: skill %>
         <% end %>
       </tbody>
     </table>
