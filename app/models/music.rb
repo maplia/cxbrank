@@ -3,15 +3,10 @@ class Music < ActiveRecord::Base
 
   def self.all_with_bonus_flag(datetime=nil)
     bonus_musics = BonusMusic.past(datetime)
-    musics = self.all.order('number')
+    musics = self.all.order(:number)
 
     musics.each do |music|
-      bonus_musics.each do |bonus|
-        if music.id == bonus.music_id
-          music.bonus = true
-          break
-        end
-      end
+      music.bonus = bonus_musics.pluck(:music_id).include?(music.id)
     end
 
     return musics

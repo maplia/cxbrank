@@ -13,9 +13,9 @@
       </thead>
       <tbody>
         <tr>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:rp]) %></td>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:regular][:rp]) %></td>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:rp] + @blocks[:regular][:rp]) %></td>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:sum_rp]) %></td>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:regular][:sum_rp]) %></td>
+          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:sum_rp] + @blocks[:regular][:sum_rp]) %></td>
         </tr>
       </tbody>
     </table>
@@ -23,5 +23,5 @@
 </div>
 
 <% @blocks.each_value do |block| %>
-  <%= render 'block', :block => block %>
+  <%= render 'block', block: block %>
 <% end %>

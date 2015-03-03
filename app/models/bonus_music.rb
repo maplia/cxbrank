@@ -5,8 +5,8 @@ class BonusMusic < ActiveRecord::Base
     return self.past
   end
 
-  def self.past(datetime=nil)
-    datetime = Time.now unless datetime
-    return self.where('period_start <= ? and period_end > ?', datetime, datetime).select('music_id')
+  def self.past(time=nil)
+    time = Time.now unless time
+    return self.where('period_start <= ? and period_end > ?', time, time)
   end
 end
