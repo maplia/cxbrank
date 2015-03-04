@@ -4,11 +4,7 @@ class Skill < ActiveRecord::Base
   def self.select_by_user_id(user_id, time=nil)
     musics = Music.all_with_bonus_flag(time)
     skills = Skill.joins(:music).where('user_id = ?', user_id.to_i).order(:best_rp)
-
-    skill_hash = {}
-    skills.each do |skill|
-      skill_hash[skill.music_id] = skill
-    end
+    skill_hash = skills.index_by(&:music_id)
 
     musics.each do |music|
       if skill_hash.has_key?(music.id)
