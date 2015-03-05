@@ -18,29 +18,10 @@ CSV.read('db/fixtures/musics.csv').each do |line|
   end
 end
 
-BonusMusic.seed(:music_id, :period_start,
-  {
-    music_id: Music.where('text_id = ?', 'wannabeyourspecial').first.id,
-    period_start: '2013-12-02 04:00', period_end: '2013-12-27 15:00',
-  },
-  {
-    music_id: Music.where('text_id = ?', 'touchofgold').first.id,
-    period_start: '2013-12-02 04:00', period_end: '2013-12-27 15:00',
-  },
-  {
-    music_id: Music.where('text_id = ?', 'amenootoganijiwoyobu').first.id,
-    period_start: '2013-12-02 04:00', period_end: '2013-12-27 15:00',
-  },
-  {
-    music_id: Music.where('text_id = ?', 'landingonthemoon').first.id,
-    period_start: '2013-12-27 15:00', period_end: '9999-12-31 23:59',
-  },
-  {
-    music_id: Music.where('text_id = ?', 'kimitomusic').first.id,
-    period_start: '2013-12-27 15:00', period_end: '9999-12-31 23:59',
-  },
-  {
-    music_id: Music.where('text_id = ?', 'dirtymouth').first.id,
-    period_start: '2013-12-27 15:00', period_end: '9999-12-31 23:59',
-  },
-)
+CSV.read('db/fixtures/bonus_musics.csv').each do |line|
+  BonusMusic.seed(:music_id, :period_start) do |s|
+    s.music_id = Music.where('text_id = ?', line[0]).first.id
+    s.period_start = line[1]
+    s.period_end = line[2]
+  end
+end
