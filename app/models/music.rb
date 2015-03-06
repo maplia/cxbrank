@@ -1,8 +1,8 @@
 class Music < ActiveRecord::Base
   attr_accessor :bonus
 
-  def self.all_with_bonus_flag(datetime=nil)
-    bonus_musics = BonusMusic.past(datetime)
+  def self.all_with_bonus_flag(time=nil)
+    bonus_musics = BonusMusic.past(time)
     musics = self.all.order(:number)
 
     musics.each do |music|
@@ -13,10 +13,10 @@ class Music < ActiveRecord::Base
   end
 
   def level(difficulty)
-    return self["#{difficulty}_level".to_sym]
+    return send("#{difficulty}_level".to_sym)
   end
 
   def notes(difficulty)
-    return self["#{difficulty}_notes".to_sym]
+    return send("#{difficulty}_notes".to_sym)
   end
 end
