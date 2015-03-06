@@ -1,5 +1,6 @@
 class Skill < ActiveRecord::Base
   belongs_to :music
+  attr_accessor :difficulty_skills
 
   def self.select_by_user_id(user_id, time=nil)
     musics = Music.all_with_bonus_flag(time)
@@ -14,6 +15,10 @@ class Skill < ActiveRecord::Base
       end
     end
 
+    skills.each do |skill|
+      skill.structure!
+    end
+
     return skills
   end
 
@@ -24,12 +29,20 @@ class Skill < ActiveRecord::Base
     })
   end
 
-  def status(difficulty)
-    return self["#{difficulty}_status".to_sym]
-  end
+  def structure!
+    @difficulty_skills = {}
 
-  def notes(difficulty)
-    return self["#{difficulty}_notes".to_sym]
+    DIFFICULTIES.each_key do |difficulty|
+      @difficulty_skills[difficulty] = {
+        locked: send("#{difficulty}_locked".to_sym),
+        status: send("#{difficulty}_status".to_sym),
+        rate: send("#{difficulty}_rate".to_sym),
+        rp: send("#{difficulty}_rp".to_sym),
+        grade: send("#{difficulty}_rate".to_sym),
+        combo: send("#{difficulty}_combo".to_sym),
+        ultimate: send("#{difficulty}_ultimate".to_sym),
+      }
+    end
   end
 
   def <=>(other)

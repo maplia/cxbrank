@@ -10,4 +10,5 @@ skill_dirtymouth:
   difficulty3_status: 2
   difficulty3_rate: 100
   difficulty3_rp: 50.0
+  best_difficulty: 3
   best_rp: 50.0

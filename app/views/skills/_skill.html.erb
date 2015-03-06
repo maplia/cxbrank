@@ -1,9 +1,14 @@
-<tr>
+<% difficulty = difficulty_id_to_sym(skill.best_difficulty) %>
+
+<tr class="<%= DIFFICULTIES[difficulty][:css_class] if DIFFICULTIES.has_key?(difficulty) %>">
   <th><%= skill.music.number %></th>
   <td class="title text">
     <%= skill.music.title %>
     <% if skill.music.subtitle %>
-      <small><%= skill.music.subtile %></small>
+      <small><%= skill.music.subtitle %></small>
     <% end %>
+  </td>
+  <td>
+    <%= sprintf_for_rp(skill.difficulty_skills[difficulty][:rp]) if skill.difficulty_skills[difficulty] %>
   </td>
 </tr>

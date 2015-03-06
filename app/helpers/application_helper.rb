@@ -30,4 +30,8 @@ module ApplicationHelper
   def sprintf_for_rp(rp)
     return sprintf('%.2f', rp)
   end
+
+  def difficulty_id_to_sym(difficulty_id)
+    return "difficulty#{difficulty_id}".to_sym
+  end
 end
