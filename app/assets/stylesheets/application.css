@@ -16,3 +16,48 @@
 body {
   font-size: 80%;
 }
+
+th.easy, tr.easy th {
+    color: #660000;
+    background-color: #bbeeff;
+}
+td.easy, tr.easy td {
+    color: #660000;
+    background-color: #cceeff;
+}
+th.standard, tr.standard th {
+    color: #006600;
+    background-color: #ccffcc;
+}
+td.standard, tr.standard td {
+    color: #00660;
+    background-color: #ddffdd;
+}
+th.hard, tr.hard th {
+    color: #444400;
+    background-color: #ffffcc;
+}
+td.hard, tr.hard td {
+    color: #444400;
+    background-color: #ffffdd;
+}
+th.master, tr.master th {
+    color: #660000;
+    background-color: #ffcccc;
+}
+td.master, tr.master td {
+    color: #660000;
+    background-color: #ffdddd;
+}
+th.unlimited, tr.unlimited th {
+    color: #000066;
+    background-color: #ccbbff;
+}
+td.unlimited, tr.unlimited td {
+    color: #000066;
+    background-color: #ddbbff;
+}
+.etc {
+    color: inherit;
+    background-color: white;
+}

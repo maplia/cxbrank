@@ -7,8 +7,12 @@
 skill_dirtymouth:
   user_id: 1
   music: dirtymouth
-  difficulty3_status: 2
+  difficulty3_status: 1
+  difficulty3_locked: false
   difficulty3_rate: 100
-  difficulty3_rp: 50.0
+  difficulty3_rp: <%= 50.0 * 1.2 %>
+  difficulty3_grade: 1
+  difficulty3_combo: 2
+  comment: 
   best_difficulty: 3
   best_rp: 50.0

@@ -31,7 +31,18 @@ module ApplicationHelper
     return sprintf('%.2f', rp)
   end
 
-  def difficulty_id_to_sym(difficulty_id)
-    return "difficulty#{difficulty_id}".to_sym
+  def difficulty_id_to_sym(id)
+    sym = "difficulty#{id}".to_sym
+    return DIFFICULTIES.has_key?(sym) ? sym : nil
+  end
+
+  def grade_status_to_sym(status)
+    sym = "grade#{status}".to_sym
+    return GRADE_STATUSES.has_key?(sym) ? sym : nil
+  end
+
+  def combo_status_to_sym(status)
+    sym = "combo#{status}".to_sym
+    return COMBO_STATUSES.has_key?(sym) ? sym : nil
   end
 end

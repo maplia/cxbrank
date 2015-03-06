@@ -12,11 +12,10 @@ class Skill < ActiveRecord::Base
         skill_hash[music.id].music.bonus = music.bonus
       else
         skills << Skill.default(user_id, music)
+        skill_hash[music.id] = skills.last
       end
-    end
 
-    skills.each do |skill|
-      skill.structure!
+      skill_hash[music.id].calc!
     end
 
     return skills
@@ -29,7 +28,7 @@ class Skill < ActiveRecord::Base
     })
   end
 
-  def structure!
+  def calc!
     @difficulty_skills = {}
 
     DIFFICULTIES.each_key do |difficulty|
@@ -38,7 +37,7 @@ class Skill < ActiveRecord::Base
         status: send("#{difficulty}_status".to_sym),
         rate: send("#{difficulty}_rate".to_sym),
         rp: send("#{difficulty}_rp".to_sym),
-        grade: send("#{difficulty}_rate".to_sym),
+        grade: send("#{difficulty}_grade".to_sym),
         combo: send("#{difficulty}_combo".to_sym),
         ultimate: send("#{difficulty}_ultimate".to_sym),
       }

@@ -8,7 +8,30 @@
       <small><%= skill.music.subtitle %></small>
     <% end %>
   </td>
+  <% if difficulty %>
+    <td>
+      [<%= DIFFICULTIES[difficulty][:abbr] %>]
+      <%= sprintf_for_level(skill.music.level(difficulty)) %>
+    </td>
+    <td>
+      <%= sprintf_for_rp(skill.difficulty_skills[difficulty][:rp]) %>
+    </td>
+    <td>
+      <%= skill.difficulty_skills[difficulty][:rate] %>%
+    </td>
+    <td>
+      <%= skill.difficulty_skills[difficulty][:ultimate_rate] %>%
+    </td>
+    <td class="mark">
+      <%= GRADE_STATUSES[grade_status_to_sym(skill.difficulty_skills[difficulty][:grade])][:text] %>
+    </td>
+    <td class="mark">
+      <%= COMBO_STATUSES[combo_status_to_sym(skill.difficulty_skills[difficulty][:combo])][:text] %>
+    </td>
+  <% else %>
+    <td colspan="6" class="mark">記録なし</td>
+  <% end %>
   <td>
-    <%= sprintf_for_rp(skill.difficulty_skills[difficulty][:rp]) if skill.difficulty_skills[difficulty] %>
+    <%= skill.comment %>
   </td>
 </tr>
