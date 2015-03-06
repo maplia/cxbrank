@@ -1,9 +1,9 @@
 <tr>
   <th><%= music.number %></th>
   <td class="title text">
-    <%= music.title %>
+    <%= raw music.title %>
     <% if music.subtitle %>
-      <small><%= music.subtile %></small>
+      <small><%= raw music.subtitle %></small>
     <% end %>
   </td>
   <% DIFFICULTIES.each do |difficulty, data| %>
