@@ -1,11 +1,12 @@
-<h1><%= @page_title %></h1>
+<h1><%= raw @page_title %></h1>
 
 <div class="unit">
   <h2>現在の登録情報</h2>
   <div class="subunit">
     <% if @skill.new_record? %>
-      <p>この曲のランクポイント情報は登録されていません。</p>
+      <p>この曲のランクポイント情報は登録されていません</p>
     <% else %>
+      <p>最終更新時刻: <%= l @skill.updated_at %></p>
       <table class="skill_list">
         <thead>
           <tr>
@@ -41,10 +42,10 @@
                 <td class="rate"><%= sprintf_for_rate(@skill.rate(difficulty)) %></td>
                 <td class="rate"><%= sprintf_for_rate(@skill.ultimate_rate(difficulty)) %></td>
                 <td class="mark">
-                  <%= GRADE_STATUSES[grade_status_to_sym(@skill.grade(difficulty))][:text] %>
+                  <%= GRADE_STATUSES[@skill.grade(difficulty)][0] %>
                 </td>
                 <td class="mark">
-                  <%= COMBO_STATUSES[combo_status_to_sym(@skill.combo(difficulty))][:text] %>
+                  <%= COMBO_STATUSES[@skill.combo(difficulty)][0] %>
                 </td>
               <% end %>
             </tr>
@@ -59,14 +60,59 @@
   <h2>編集フォーム</h2>
   <div class="subunit">
     <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
-    <table class="skill_form">
-      <tbody>
-        <% DIFFICULTIES.each do |difficulty, data| %>
-          <tr class="<%= data[:css_class] %>">
-            <th class="difficulty"><%= image_tag data[:img_src], alt: data[:abbr], height: 12 %></th>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= form_for(@skill, url: '/skill/confirm') do |f| %>
+      <table class="skill_form">
+        <tbody>
+          <% DIFFICULTIES.each do |difficulty, data| %>
+            <tr class="<%= data[:css_class] %>">
+              <th class="difficulty" rowspan="2">
+                <%= image_tag data[:img_src], alt: data[:abbr], height: 12 %>
+              </th>
+              <td>
+                <label>
+                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:cleared][:value] %><%= PLAY_STATUSES[:cleared][:text] %>:
+                </label>
+                <label>
+                  RP:
+                  <%= f.text_field "#{difficulty}_rp".to_sym, size: 6, maxlength: 6, value: number_with_precision(@skill.rp(difficulty), precision: 2) %>
+                </label>
+                <label>
+                  CLEAR RATE:
+                  <%= f.text_field "#{difficulty}_rate".to_sym, {size: 3, maxlength: 3} %>%
+                </label>
+                <label>
+                  ランク:
+                  <%= f.select "#{difficulty}_grade".to_sym, GRADE_STATUSES %>
+                </label>
+                <label>
+                  コンボ:
+                  <%= f.select "#{difficulty}_combo".to_sym, COMBO_STATUSES %>
+                </label>
+                <label>
+                  <%= f.check_box "#{difficulty}_ultimate".to_sym %>ULTIMATE
+                </label>
+              </td>
+            </tr>
+            <tr class="<%= data[:css_class] %>">
+              <td>
+                <label>
+                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:failed][:value] %><%= PLAY_STATUSES[:failed][:text] %>
+                </label>
+                /
+                <label>
+                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:noplay][:value] %><%= PLAY_STATUSES[:noplay][:text] %>
+                </label>
+                <label>
+                  <%= f.check_box "#{difficulty}_locked".to_sym %>未取得/ロック譜面
+                </label>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p>
+        <%= submit_tag '登録' %><%= submit_tag '削除', name: 'remove' %><input type="reset" value="入力リセット" />
+      </p>
+    <% end %>
   </div>
 </div>

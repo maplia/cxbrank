@@ -43,50 +43,22 @@ PLAY_STATUSES = {
   },
 }
 
-GRADE_STATUSES = {
-  grade0: {
-    value:  0, text: '',
-  },
-  grade1: {
-    value:  1, text: 'S++',
-  },
-  grade2: {
-    value:  2, text: 'S+',
-  },
-  grade3: {
-    value:  3, text: 'S',
-  },
-  grade4: {
-    value:  4, text: 'A+',
-  },
-  grade5: {
-    value:  5, text: 'A',
-  },
-  grade6: {
-    value:  6, text: 'B+',
-  },
-  grade7: {
-    value:  7, text: 'B',
-  },
-  grade8: {
-    value:  8, text: 'C',
-  },
-  grade9: {
-    value:  9, text: 'D',
-  },
-  grade10: {
-    value: 10, text: 'E',
-  },
-}
+GRADE_STATUSES = [
+  ['',     0],
+  ['S++',  1],
+  ['S+',   2],
+  ['S',    3],
+  ['A+',   4],
+  ['A',    5],
+  ['B+',   6],
+  ['B',    7],
+  ['C',    8],
+  ['D',    9],
+  ['E',   10],
+]
 
-COMBO_STATUSES = {
-  combo0: {
-    value: 0, text: '',
-  },
-  combo1: {
-    value: 1, text: 'FC',
-  },
-  combo2: {
-    value: 2, text: 'EXC',
-  },
-}
+COMBO_STATUSES = [
+  ['',    0],
+  ['FC',  1],
+  ['EXC', 2],
+]

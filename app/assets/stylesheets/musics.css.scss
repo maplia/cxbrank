@@ -1,3 +1,15 @@
 // Place all the styles related to the musics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.music_list thead tr th.number {
+  width: 2.5em;
+}
+
+table.music_list thead tr th.level {
+  width: 2.5em;
+}
+
+table.music_list thead tr th.notes {
+  width: 3.5em;
+}

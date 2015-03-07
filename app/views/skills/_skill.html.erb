@@ -5,11 +5,7 @@
 <tr class="<%= DIFFICULTIES[difficulty][:css_class] if DIFFICULTIES.has_key?(difficulty) %>">
   <th class="<%= target ? 'target' : 'untarget' %>"><%= rank %></th>
   <td class="title text">
-    <% if edit %>
-      <%= link_to title_text, "/skills/edit/#{skill.music.text_id}" %>
-    <% else %>
-      <%= title_text %>
-    <% end %>
+    <%= link_to_if edit, title_text, "/skills/edit/#{skill.music.text_id}" %>
     <% if difficulty %>
       <% if skill.ultimate(difficulty) %>
         <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>
@@ -34,10 +30,10 @@
       <%= sprintf_for_rate(skill.ultimate_rate(difficulty)) %>
     </td>
     <td class="mark">
-      <%= GRADE_STATUSES[grade_status_to_sym(skill.grade(difficulty))][:text] %>
+      <%= GRADE_STATUSES[skill.grade(difficulty)][0] %>
     </td>
     <td class="mark">
-      <%= COMBO_STATUSES[combo_status_to_sym(skill.combo(difficulty))][:text] %>
+      <%= COMBO_STATUSES[skill.combo(difficulty)][0] %>
     </td>
   <% else %>
     <td colspan="6" class="mark">記録なし</td>

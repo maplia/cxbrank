@@ -31,7 +31,10 @@ class Skill < ActiveRecord::Base
   end
 
   def self.default(user_id, music)
-    hash = {user_id: user_id, music: music, music_id: music.id}
+    hash = {
+      user_id: user_id, music: music, music_id: music.id,
+      best_difficulty: nil, best_rp: 0.00,
+    }
     DIFFICULTIES.each_key do |difficulty|
       hash["#{difficulty}_status".to_sym] = 0
       hash["#{difficulty}_locked".to_sym] = false
