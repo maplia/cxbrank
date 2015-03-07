@@ -13,13 +13,13 @@ LIST_BLOCKS = {
 
 DIFFICULTIES = {
   difficulty1: {
-    id: 1, text: 'STANDARD',  abbr: 'STD', css_class: 'standard',
+    id: 1, text: 'STANDARD',  abbr: 'STD', img_src: 'standard.png', css_class: 'standard',
   },
   difficulty2: {
-    id: 2, text: 'HARD',      abbr: 'HRD', css_class: 'hard',
+    id: 2, text: 'HARD',      abbr: 'HRD', img_src: 'hard.png',     css_class: 'hard',
   },
   difficulty3: {
-    id: 3, text: 'MASTER',    abbr: 'MAS', css_class: 'master',
+    id: 3, text: 'MASTER',    abbr: 'MAS', img_src: 'master.png',   css_class: 'master',
   },
 =begin
   difficulty4: {
@@ -29,6 +29,18 @@ DIFFICULTIES = {
     id: 5, text: 'UNLIMITED', abbr: 'UNL', css_class: 'unlimited',
   },
 =end
+}
+
+PLAY_STATUSES = {
+  noplay: {
+    value: 0, text: 'プレイなし',
+  },
+  failed: {
+    value: 1, text: 'クリア失敗',
+  },
+  cleared: {
+    value: 2, text: 'クリア',
+  },
 }
 
 GRADE_STATUSES = {

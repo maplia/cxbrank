@@ -1,32 +1,43 @@
 <% difficulty = difficulty_id_to_sym(skill.best_difficulty) %>
+<% title_text = skill.music.title %>
+<% title_text << "<small>#{skill.music.subtitle}</small>" if skill.music.subtitle %>
 
 <tr class="<%= DIFFICULTIES[difficulty][:css_class] if DIFFICULTIES.has_key?(difficulty) %>">
-  <th><%= skill.music.number %></th>
+  <th class="<%= target ? 'target' : 'untarget' %>"><%= rank %></th>
   <td class="title text">
-    <%= skill.music.title %>
-    <% if skill.music.subtitle %>
-      <small><%= skill.music.subtitle %></small>
+    <% if edit %>
+      <%= link_to title_text, "/skills/edit/#{skill.music.text_id}" %>
+    <% else %>
+      <%= title_text %>
+    <% end %>
+    <% if difficulty %>
+      <% if skill.ultimate(difficulty) %>
+        <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>
+      <% end %>
+      <% if skill.locked(difficulty) %>
+        <%= image_tag 'locked.png', alt: '[Locked]', height: 12 %>
+      <% end %>
     <% end %>
   </td>
   <% if difficulty %>
-    <td>
-      [<%= DIFFICULTIES[difficulty][:abbr] %>]
+    <td class="level">
+      <%= image_tag DIFFICULTIES[difficulty][:img_src], alt: "[#{DIFFICULTIES[difficulty][:abbr]}]", height: 12 %>
       <%= sprintf_for_level(skill.music.level(difficulty)) %>
     </td>
-    <td>
-      <%= sprintf_for_rp(skill.difficulty_skills[difficulty][:rp]) %>
+    <td class="number">
+      <%= sprintf_for_rp(skill.rp(difficulty)) %>
     </td>
-    <td>
-      <%= skill.difficulty_skills[difficulty][:rate] %>%
+    <td class="number">
+      <%= sprintf_for_rate(skill.rate(difficulty)) %>
     </td>
-    <td>
-      <%= skill.difficulty_skills[difficulty][:ultimate_rate] %>%
-    </td>
-    <td class="mark">
-      <%= GRADE_STATUSES[grade_status_to_sym(skill.difficulty_skills[difficulty][:grade])][:text] %>
+    <td class="number">
+      <%= sprintf_for_rate(skill.ultimate_rate(difficulty)) %>
     </td>
     <td class="mark">
-      <%= COMBO_STATUSES[combo_status_to_sym(skill.difficulty_skills[difficulty][:combo])][:text] %>
+      <%= GRADE_STATUSES[grade_status_to_sym(skill.grade(difficulty))][:text] %>
+    </td>
+    <td class="mark">
+      <%= COMBO_STATUSES[combo_status_to_sym(skill.combo(difficulty))][:text] %>
     </td>
   <% else %>
     <td colspan="6" class="mark">記録なし</td>

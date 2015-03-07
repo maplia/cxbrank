@@ -1,3 +1,60 @@
 // Place all the styles related to the skills controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.skill_list thead tr th.rank {
+  width: 2.0em;
+}
+
+table.skill_list thead tr th.title {
+  width: 27.0em;
+}
+
+table.skill_list thead tr th.level {
+  width: 6.0em;
+}
+
+table.skill_list thead tr th.rp {
+  width: 4.0em;
+}
+
+table.skill_list thead tr th.rate {
+  width: 3.0em;
+}
+
+table.skill_list thead tr th.mark {
+  width: 3.5em;
+}
+
+table.skill_list thead tr th.icon {
+  width: 1.5em;
+}
+
+table.skill_list tbody tr th.target {
+  color: red;
+  background-color: #ccffcc;
+}
+
+table.skill_list tbody tr th.untarget {
+  color: #006600;
+  background-color: #ccffcc;
+}
+
+table.skill_list tbody tr td.icon {
+  text-align: center;
+}
+
+table.skill_sum thead th {
+  width: 9.0em;
+}
+
+table.skill_sum tbody td {
+  color: white;
+  background-color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+table.skill_form tbody tr th.difficulty {
+  width: 4.0em;
+}

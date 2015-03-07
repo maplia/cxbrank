@@ -3,19 +3,19 @@
 <div class="unit">
   <h2>ランクポイント</h2>
   <div class="subunit">
-    <table class="sp">
+    <table class="skill_sum">
       <thead>
         <tr>
-          <th class="part"><%= @blocks[:bonus][:title] %></th>
-          <th class="part"><%= @blocks[:regular][:title] %></th>
-          <th class="sum">合計RP</th>
+          <th><%= @blocks[:bonus][:title] %></th>
+          <th><%= @blocks[:regular][:title] %></th>
+          <th>合計RP</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:sum_rp]) %></td>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:regular][:sum_rp]) %></td>
-          <td class="mark v1_s0"><%= sprintf_for_rp(@blocks[:bonus][:sum_rp] + @blocks[:regular][:sum_rp]) %></td>
+          <td><%= sprintf_for_rp(@blocks[:bonus][:sum_rp]) %></td>
+          <td><%= sprintf_for_rp(@blocks[:regular][:sum_rp]) %></td>
+          <td><%= sprintf_for_rp(@blocks[:bonus][:sum_rp] + @blocks[:regular][:sum_rp]) %></td>
         </tr>
       </tbody>
     </table>
@@ -23,5 +23,5 @@
 </div>
 
 <% @blocks.each_value do |block| %>
-  <%= render 'block', block: block %>
+  <%= render 'block', block: block, edit: @edit %>
 <% end %>

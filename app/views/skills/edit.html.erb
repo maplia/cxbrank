@@ -1,0 +1,72 @@
+<h1><%= @page_title %></h1>
+
+<div class="unit">
+  <h2>現在の登録情報</h2>
+  <div class="subunit">
+    <% if @skill.new_record? %>
+      <p>この曲のランクポイント情報は登録されていません。</p>
+    <% else %>
+      <table class="skill_list">
+        <thead>
+          <tr>
+            <th class="level" colspan="2">レベル</th>
+            <th class="icon"><%= image_tag 'locked.png', alt: '[L]', height: 12 %></th>
+            <th class="icon"><%= image_tag 'ultimate.png', alt: '[U]', height: 12 %></th>
+            <th class="rp">RP</th><th class="rate">RATE</th><th class="rate">ULT</th>
+            <th class="mark">ランク</th><th class="mark">コンボ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% DIFFICULTIES.each do |difficulty, data| %>
+            <tr class="<%= data[:css_class] %>">
+              <th><%= image_tag data[:img_src], alt: data[:abbr], height: 12 %></th>
+              <td><%= sprintf_for_level(@skill.music.level(difficulty)) %></td>
+              <% case @skill.status(difficulty) %>
+              <% when PLAY_STATUSES[:noplay][:value] %>
+                <td class="mark" colspan="7"><%= PLAY_STATUSES[:noplay][:text] %></td>
+              <% when PLAY_STATUSES[:failed][:value] %>
+                <td class="mark" colspan="7"><%= PLAY_STATUSES[:failed][:text] %></td>
+              <% when PLAY_STATUSES[:cleared][:value] %>
+                <td class="icon">
+                  <% if @skill.locked(difficulty) %>
+                    <%= image_tag 'locked.png', alt: '[L]', height: 12 %>
+                  <% end %>
+                </td>
+                <td class="icon">
+                  <% if @skill.ultimate(difficulty) %>
+                    <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>
+                  <% end %>
+                </td>
+                <td class="rp"><%= sprintf_for_rp(@skill.rp(difficulty)) %></td>
+                <td class="rate"><%= sprintf_for_rate(@skill.rate(difficulty)) %></td>
+                <td class="rate"><%= sprintf_for_rate(@skill.ultimate_rate(difficulty)) %></td>
+                <td class="mark">
+                  <%= GRADE_STATUSES[grade_status_to_sym(@skill.grade(difficulty))][:text] %>
+                </td>
+                <td class="mark">
+                  <%= COMBO_STATUSES[combo_status_to_sym(@skill.combo(difficulty))][:text] %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
+
+<div class="unit">
+  <h2>編集フォーム</h2>
+  <div class="subunit">
+    <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
+    <table class="skill_form">
+      <tbody>
+        <% DIFFICULTIES.each do |difficulty, data| %>
+          <tr class="<%= data[:css_class] %>">
+            <th class="difficulty"><%= image_tag data[:img_src], alt: data[:abbr], height: 12 %></th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

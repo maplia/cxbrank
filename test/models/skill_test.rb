@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SkillTest < ActiveSupport::TestCase
   test "select_by_user_id" do
-    result = Skill.select_by_user_id('00001')
+    result = Skill.select_by_user_id('00001', false)
     bonus_skills = []
     regular_skills = []
 

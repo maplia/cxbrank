@@ -4,15 +4,17 @@
     <table id="<%= block[:id] %>" class="skill_list">
       <thead>
         <tr>
-          <th>#</th><th>タイトル</th>
-          <th>レベル</th><th>RP</th>
-          <th>RATE</th><th>ULT</th><th>グレード</th><th>コンボ</th>
+          <th class="rank">#</th><th class="title">タイトル</th>
+          <th class="level">レベル</th><th class="rp">RP</th>
+          <th class="rate">RATE</th><th class="rate">ULT</th>
+          <th class="mark">ランク</th><th class="mark">コンボ</th>
           <th>コメント</th>
         </tr>
       </thead>
       <tbody>
-        <% block[:skills].each do |skill| %>
-          <%= render 'skill', skill: skill %>
+        <% block[:skills].each_with_index do |skill, i| %>
+          <% target = true if !skill.new_record? and block[:target_count] < i %>
+          <%= render 'skill', skill: skill, rank: i+1, edit: edit, target: target %>
         <% end %>
       </tbody>
     </table>

@@ -31,6 +31,14 @@ module ApplicationHelper
     return sprintf('%.2f', rp)
   end
 
+  def sprintf_for_rate(rate)
+    if rate
+      return sprintf('%d%%', rate)
+    else
+      return '-'
+    end
+  end
+
   def difficulty_id_to_sym(id)
     sym = "difficulty#{id}".to_sym
     return DIFFICULTIES.has_key?(sym) ? sym : nil

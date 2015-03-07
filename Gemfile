@@ -46,5 +46,5 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# User Seed-fu for master maintenance
+# Use Seed-fu for master maintenance
 gem 'seed-fu'
