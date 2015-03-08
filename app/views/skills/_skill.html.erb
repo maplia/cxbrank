@@ -1,11 +1,11 @@
 <% difficulty = difficulty_id_to_sym(skill.best_difficulty) %>
 <% title_text = skill.music.title %>
-<% title_text << "<small>#{skill.music.subtitle}</small>" if skill.music.subtitle %>
+<% title_text << " <small>#{skill.music.subtitle}</small>" if skill.music.subtitle %>
 
 <tr class="<%= DIFFICULTIES[difficulty][:css_class] if DIFFICULTIES.has_key?(difficulty) %>">
   <th class="<%= target ? 'target' : 'untarget' %>"><%= rank %></th>
   <td class="title text">
-    <%= link_to_if edit, title_text, "/skills/edit/#{skill.music.text_id}" %>
+    <%= link_to_if edit, raw(title_text), edit_skill_path(skill.music.text_id) %>
     <% if difficulty %>
       <% if skill.ultimate(difficulty) %>
         <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>

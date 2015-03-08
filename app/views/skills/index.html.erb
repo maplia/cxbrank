@@ -1,4 +1,7 @@
-<h1><%= @page_title %></h1>
+<% breadcrumb :skills %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title) %></h1>
 
 <div class="unit">
   <h2>ランクポイント</h2>
@@ -6,16 +9,20 @@
     <table class="skill_sum">
       <thead>
         <tr>
-          <th><%= @blocks[:bonus][:title] %></th>
-          <th><%= @blocks[:regular][:title] %></th>
+          <% @blocks.each_value do |data| %>
+            <th><%= data[:title] %></th>
+          <% end %>
           <th>合計RP</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><%= sprintf_for_rp(@blocks[:bonus][:sum_rp]) %></td>
-          <td><%= sprintf_for_rp(@blocks[:regular][:sum_rp]) %></td>
-          <td><%= sprintf_for_rp(@blocks[:bonus][:sum_rp] + @blocks[:regular][:sum_rp]) %></td>
+          <% total_rp = 0.00 %>
+          <% @blocks.each_value do |data| %>
+            <td><%= sprintf_for_rp(data[:sum_rp]) %></td>
+            <% total_rp = data[:sum_rp] %>
+          <% end %>
+          <td><%= sprintf_for_rp(total_rp) %></td>
         </tr>
       </tbody>
     </table>

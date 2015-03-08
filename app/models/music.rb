@@ -1,4 +1,5 @@
 class Music < ActiveRecord::Base
+  has_one :skill
   attr_accessor :bonus
 
   def self.all_with_bonus_flag(time=nil)
@@ -13,10 +14,10 @@ class Music < ActiveRecord::Base
   end
 
   def level(difficulty)
-    return send("#{difficulty}_level".to_sym)
+    return self["#{difficulty}_level".to_sym]
   end
 
   def notes(difficulty)
-    return send("#{difficulty}_notes".to_sym)
+    return self["#{difficulty}_notes".to_sym]
   end
 end

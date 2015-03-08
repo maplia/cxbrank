@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class SkillTest < ActiveSupport::TestCase
-  test "select_by_user_id" do
-    result = Skill.select_by_user_id('00001', false)
+  test "select_by_user" do
+    user = User.where('id = ?', '00001'.to_i).first
+    result = Skill.select_by_user(user, false)
     bonus_skills = []
     regular_skills = []
 

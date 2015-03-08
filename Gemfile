@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.13'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# gem 'sqlite3'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 
@@ -48,3 +48,6 @@ end
 
 # Use Seed-fu for master maintenance
 gem 'seed-fu'
+
+# Use breadcrumb navigation
+gem 'gretel'

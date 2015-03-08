@@ -1,14 +1,22 @@
 module ApplicationHelper
-  def header_title(page_title=nil)
-    if page_title
+  def header_title(page_title=nil, page_subtitle=nil)
+    if page_subtitle
+      return "#{page_title} #{page_subtitle} - #{APP_INFO[:name]}"
+    elsif page_title and page_title != APP_INFO[:name]
       return "#{page_title} - #{APP_INFO[:name]}"
     else
-      return APP_INFO[:name]
+      return "#{APP_INFO[:name]}"
     end
   end
 
-  def h1_title(page_title=nil)
-    return page_title || APP_INFO[:name]
+  def h1_title(page_title=nil, page_subtitle=nil)
+    if page_subtitle
+      return "#{page_title} <small>#{page_subtitle}</small>"
+    elsif page_title and page_title != APP_INFO[:name]
+      return "#{page_title}"
+    else
+      return "#{APP_INFO[:name]}"
+    end
   end
 
   def sprintf_for_level(level)
@@ -21,6 +29,10 @@ module ApplicationHelper
 
   def sprintf_for_rp(rp)
     return rp ? sprintf('%.2f', rp) : '-'
+  end
+
+  def sprintf_for_diff_rp(rp)
+    return rp != 0 ? sprintf('%+.2f', rp) : '-'
   end
 
   def sprintf_for_rate(rate)

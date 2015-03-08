@@ -1,6 +1,6 @@
-<p class="top_navi">CxB RankPoint Simulator トップ</p>
+<%= APP_INFO[:name] %>
 
-<h1><%= h1_title %></h1>
+<h1><%= raw @page_title %></h1>
 
 <div class="sidebar">
   <div class="unit">
@@ -9,15 +9,15 @@
       <dl>
         <dt>■ユーザー登録済の方</dt>
         <dd>
-          <%= form_tag :controller => 'login', :action => 'auth' do %>
+          <%= form_tag controller: 'login', action: 'auth' do %>
             <p>
               <label>
-                ユーザID: <%= text_field_tag :userid, '', {:size => 5, :maxlength => 5} %>
+                ユーザID: <%= text_field_tag :userid, '', size: 5, maxlength: 5 %>
               </label>
             </p>
             <p>
               <label>
-                パスワード: <%= password_field_tag :password, '', {:size => 12, :maxlength => 40} %>
+                パスワード: <%= password_field_tag :password, '', size: 12, maxlength: 40 %>
               </label>
             </p>
             <p>

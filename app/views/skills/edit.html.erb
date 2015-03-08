@@ -1,4 +1,7 @@
-<h1><%= raw @page_title %></h1>
+<% breadcrumb :edit_skill %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title, @page_subtitle) %></h1>
 
 <div class="unit">
   <h2>現在の登録情報</h2>
@@ -7,7 +10,7 @@
       <p>この曲のランクポイント情報は登録されていません</p>
     <% else %>
       <p>最終更新時刻: <%= l @skill.updated_at %></p>
-      <table class="skill_list">
+      <table class="skill_confirm">
         <thead>
           <tr>
             <th class="level" colspan="2">レベル</th>
@@ -53,6 +56,9 @@
         </tbody>
       </table>
     <% end %>
+    <% if @skill.comment and !@skill.comment.empty? %>
+      <p>コメント: <%= @skill.comment %></p>
+    <% end %>
   </div>
 </div>
 
@@ -60,7 +66,7 @@
   <h2>編集フォーム</h2>
   <div class="subunit">
     <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
-    <%= form_for(@skill, url: '/skill/confirm') do |f| %>
+    <%= form_for(@skill, url: url_for(action: :confirm, id: @skill.music.text_id)) do |f| %>
       <table class="skill_form">
         <tbody>
           <% DIFFICULTIES.each do |difficulty, data| %>
@@ -108,10 +114,15 @@
               </td>
             </tr>
           <% end %>
+          <tr>
+            <th>コメント</th>
+            <td><%= f.text_field :comment, size: 100 %></td>
+          </tr>
         </tbody>
       </table>
       <p>
-        <%= submit_tag '登録' %><%= submit_tag '削除', name: 'remove' %><input type="reset" value="入力リセット" />
+        <%= f.submit %><%= f.submit '削除', name: 'delete', disabled: @skill.new_record? %><input type="reset" value="入力リセット" />
+        <%= f.hidden_field :new_record?, name: 'new_record' %>
       </p>
     <% end %>
   </div>
