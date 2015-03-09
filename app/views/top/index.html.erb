@@ -1,4 +1,4 @@
-<%= APP_INFO[:name] %>
+<div class="breadcrumbs"><%= APP_INFO[:name] %></div>
 
 <h1><%= raw @page_title %></h1>
 
@@ -43,7 +43,7 @@
     <div class="unit">
       <h2>登録曲リスト</h2>
       <div class="subunit">
-        <p><%= link_to '登録曲リスト', '/musics' %></p>
+        <p><%= link_to '登録曲リスト', :musics %></p>
       </div>
     </div>
   </div>

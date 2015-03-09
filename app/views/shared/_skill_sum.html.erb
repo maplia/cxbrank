@@ -1,0 +1,25 @@
+<div class="unit">
+  <h2>ランクポイント</h2>
+  <div class="subunit">
+    <table class="skill_sum">
+      <thead>
+        <tr>
+          <% data.each_value do |block_data| %>
+            <th><%= block_data[:title] %></th>
+          <% end %>
+          <th>合計RP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% total_rp = 0.00 %>
+          <% data.each_value do |block_data| %>
+            <td><%= sprintf_for_rp(block_data[:sum_rp]) %></td>
+            <% total_rp += block_data[:sum_rp] %>
+          <% end %>
+          <td><%= sprintf_for_rp(total_rp) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

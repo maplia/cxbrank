@@ -66,7 +66,7 @@ class Skill < ActiveRecord::Base
         self["#{difficulty}_rp".to_sym] = (temp * 100).to_i / 100.0
       end
 
-      if !ignore_locked or !locked(difficulty)
+      if ignore_locked or !locked(difficulty)
         if self.best_rp < rp(difficulty)
           self.best_difficulty = i+1
           self.best_rp = rp(difficulty)
@@ -112,6 +112,10 @@ class Skill < ActiveRecord::Base
   end
 
   def <=>(other)
-    return self.best_rp <=> other.best_rp
+    if self.best_rp != other.best_rp
+      return self.best_rp <=> other.best_rp
+    else
+      return self.music.sortkey <=> other.music.sortkey
+    end
   end
 end

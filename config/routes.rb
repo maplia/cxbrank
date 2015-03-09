@@ -1,4 +1,5 @@
 Cxbrank::Application.routes.draw do
+  get "iglock/show"
   get  'login',                to: 'login#index'
   post 'login/auth'
 
@@ -9,5 +10,7 @@ Cxbrank::Application.routes.draw do
       patch 'confirm'
     end
   end
+  resources :view, only: ['show']
+  resources :iglock, only: ['show']
   root to: 'top#index'
 end

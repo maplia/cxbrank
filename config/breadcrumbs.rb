@@ -22,6 +22,16 @@ crumb :confirm_skill do
   parent :skills
 end
 
+crumb :view do
+  link 'ランクポイント表', view_path
+  parent :root
+end
+
+crumb :iglock do
+  link 'ランクポイント表 [ロック状態無視]', iglock_path
+  parent :root
+end
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end
