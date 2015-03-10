@@ -1,5 +1,4 @@
 class Music < ActiveRecord::Base
-  has_one :skill
   attr_accessor :bonus
 
   def self.all_with_bonus_flag(time=nil)

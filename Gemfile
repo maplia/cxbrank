@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.13'
+gem 'rails', '4.1.9'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
@@ -45,6 +45,9 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Use Seed-fu for master maintenance
 gem 'seed-fu'

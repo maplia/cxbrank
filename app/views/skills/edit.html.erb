@@ -7,7 +7,7 @@
   <h2>現在の登録情報</h2>
   <div class="subunit">
     <% if @skill.new_record? %>
-      <p>この曲のランクポイント情報は登録されていません</p>
+      <p>ランクポイント情報が登録されていません</p>
     <% else %>
       <p>最終更新時刻: <%= l @skill.updated_at %></p>
       <table class="skill_confirm">

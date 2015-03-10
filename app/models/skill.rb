@@ -8,7 +8,7 @@ class Skill < ActiveRecord::Base
 
   def self.select_by_user(user, ignore_locked=false, time=nil)
     musics = Music.all_with_bonus_flag(time)
-    skills = self.where('user_id = ?', user.id)
+    skills = self.where('user_id = ?', user.id).to_a
     skill_hash = skills.index_by(&:music_id)
 
     musics.each do |music|
@@ -20,7 +20,7 @@ class Skill < ActiveRecord::Base
         skill_hash[music.id] = skills.last
       end
     end
-    skills.sort!.reverse!
+    skills.sort!
 
     return skills
   end
@@ -35,16 +35,16 @@ class Skill < ActiveRecord::Base
   def self.default(user, music)
     hash = {
       user_id: user.id, music_id: music.id,
-      best_difficulty: nil, best_rp: 0.00,
+      best_difficulty: DIFFICULTY_ID_NONE, best_rp: 0.00,
     }
     DIFFICULTIES.each_key do |difficulty|
-      hash["#{difficulty}_status".to_sym] = 0
+      hash["#{difficulty}_status".to_sym] = PLAY_STATUSES[:noplay][:value]
       hash["#{difficulty}_locked".to_sym] = false
       hash["#{difficulty}_ultimate".to_sym] = false
       hash["#{difficulty}_rp".to_sym] = 0.00
       hash["#{difficulty}_rate".to_sym] = 0
-      hash["#{difficulty}_grade".to_sym] = 0
-      hash["#{difficulty}_combo".to_sym] = 0
+      hash["#{difficulty}_grade".to_sym] = GRADE_STATUSES[0][1]
+      hash["#{difficulty}_combo".to_sym] = COMBO_STATUSES[0][1]
     end
 
     skill = self.new(hash)
@@ -54,11 +54,12 @@ class Skill < ActiveRecord::Base
   end
 
   def calc!(ignore_locked=false)
-    self.music = Music.where('id = ?', self[:music_id]).first unless self.music
     self.best_rp = 0.00
+    DIFFICULTIES.each do |difficulty, data|
+      self["#{difficulty}_rp"] = 0.00 unless rp(difficulty)
+      self["#{difficulty}_rate"] = 0 unless rate(difficulty)
 
-    DIFFICULTIES.keys.each_with_index do |difficulty, i|
-      if !rp(difficulty) or rp(difficulty) == 0
+      if rp(difficulty) == 0.00
         temp = self.music.level(difficulty) * (rate(difficulty) || 0) / 100.0
         if ultimate(difficulty)
           temp *= 1.2
@@ -68,7 +69,7 @@ class Skill < ActiveRecord::Base
 
       if ignore_locked or !locked(difficulty)
         if self.best_rp < rp(difficulty)
-          self.best_difficulty = i+1
+          self.best_difficulty = data[:id]
           self.best_rp = rp(difficulty)
         end
       end
@@ -113,7 +114,7 @@ class Skill < ActiveRecord::Base
 
   def <=>(other)
     if self.best_rp != other.best_rp
-      return self.best_rp <=> other.best_rp
+      return other.best_rp <=> self.best_rp
     else
       return self.music.sortkey <=> other.music.sortkey
     end
