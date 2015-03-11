@@ -8,13 +8,16 @@ CSV.read('db/fixtures/musics.csv').each do |line|
     s.title = line[3]
     s.subtitle = line[4]
     s.sortkey = line[5]
-    s.difficulty1_level = line[6]
-    s.difficulty2_level = line[7]
-    s.difficulty3_level = line[8]
-    s.difficulty1_notes = line[9]
-    s.difficulty2_notes = line[10]
-    s.difficulty3_notes = line[11]
-    s.added_at = line[12].empty? ? '2013-12-02 04:00' : line[12]
+    s.added_at = line[6] || '2013-12-02 04:00'
+  end
+end
+
+CSV.read('db/fixtures/music_scores.csv').each do |line|
+  MusicScore.seed(:id) do |s|
+    s.music_id = Music.where('text_id = ?', line[0]).first.id
+    s.difficulty = line[1]
+    s.level = line[2]
+    s.notes = line[3]
   end
 end
 

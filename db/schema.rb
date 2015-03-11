@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311151455) do
+ActiveRecord::Schema.define(version: 20150311202421) do
 
   create_table "bonus_musics", force: true do |t|
     t.integer  "music_id",     null: false
@@ -31,22 +31,26 @@ ActiveRecord::Schema.define(version: 20150311151455) do
   end
 
   create_table "musics", force: true do |t|
-    t.integer  "number",                       null: false
-    t.string   "text_id",                      null: false
-    t.string   "title",                        null: false
+    t.integer  "number",     null: false
+    t.string   "text_id",    null: false
+    t.string   "title",      null: false
     t.string   "subtitle"
-    t.string   "sortkey",                      null: false
-    t.float    "difficulty1_level", limit: 24
-    t.float    "difficulty2_level", limit: 24
-    t.float    "difficulty3_level", limit: 24
-    t.float    "difficulty4_level", limit: 24
-    t.float    "difficulty5_level", limit: 24
-    t.integer  "difficulty1_notes"
-    t.integer  "difficulty2_notes"
-    t.integer  "difficulty3_notes"
-    t.integer  "difficulty4_notes"
-    t.integer  "difficulty5_notes"
-    t.datetime "added_at",                     null: false
+    t.string   "sortkey",    null: false
+    t.datetime "added_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "skill_scores", force: true do |t|
+    t.integer  "skill_id",              null: false
+    t.integer  "status"
+    t.boolean  "locked"
+    t.integer  "rate"
+    t.float    "rp",         limit: 24
+    t.integer  "grade"
+    t.integer  "combo"
+    t.boolean  "ultimate"
+    t.integer  "score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

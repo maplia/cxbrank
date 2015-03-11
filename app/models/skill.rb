@@ -1,5 +1,7 @@
 class Skill < ActiveRecord::Base
   belongs_to :music
+  has_many :skill_scores
+  attr_accessor :difficulty1, :difficulty2, :difficulty3, :difficulty4, :difficulty5
 
   DIFFICULTIES.each_key do |difficulty|
     validate "#{difficulty}_rate".to_sym,
@@ -8,7 +10,7 @@ class Skill < ActiveRecord::Base
 
   def self.select_by_user(user, ignore_locked=false, time=nil)
     musics = Music.all_with_bonus_flag(time)
-    skills = self.where('user_id = ?', user.id).to_a
+    skills = includes(:skill_scores).where('user_id = ?', user.id).to_a
     skill_hash = skills.index_by(&:music_id)
 
     musics.each do |music|
@@ -26,7 +28,7 @@ class Skill < ActiveRecord::Base
   end
 
   def self.select_by_user_and_music(user, music)
-    skill = joins(:music).where('user_id = ? and music_id = ?', user.id, music.id).first
+    skill = includes(:music).where('user_id = ? and music_id = ?', user.id, music.id).first
     skill = default(user, music) unless skill
 
     return skill
@@ -37,15 +39,6 @@ class Skill < ActiveRecord::Base
       user_id: user.id, music_id: music.id,
       best_difficulty: 0, best_rp: 0.00,
     }
-    DIFFICULTIES.each_key do |difficulty|
-      hash["#{difficulty}_status".to_sym] = PLAY_STATUSES[:noplay][:value]
-      hash["#{difficulty}_locked".to_sym] = false
-      hash["#{difficulty}_ultimate".to_sym] = false
-      hash["#{difficulty}_rp".to_sym] = 0.00
-      hash["#{difficulty}_rate".to_sym] = 0
-      hash["#{difficulty}_grade".to_sym] = GRADE_STATUSES[0][1]
-      hash["#{difficulty}_combo".to_sym] = COMBO_STATUSES[0][1]
-    end
 
     skill = self.new(hash)
     skill.music = music
@@ -77,23 +70,23 @@ class Skill < ActiveRecord::Base
   end
 
   def locked(difficulty)
-    return self["#{difficulty}_locked".to_sym]
+    return send(difficulty).locked
   end
 
   def status(difficulty)
-    return self["#{difficulty}_status".to_sym]
+    return send(difficulty).status
   end
 
   def ultimate(difficulty)
-    return self["#{difficulty}_ultimate".to_sym]
+    return send(difficulty).ultimate
   end
 
   def rp(difficulty)
-    return self["#{difficulty}_rp".to_sym]
+    return send(difficulty).rp
   end
 
   def rate(difficulty)
-    return self["#{difficulty}_rate".to_sym]
+    return send(difficulty).rate
   end
 
   def ultimate_rate(difficulty)
@@ -105,11 +98,11 @@ class Skill < ActiveRecord::Base
   end
 
   def grade(difficulty)
-    return self["#{difficulty}_grade".to_sym]
+    return send(difficulty).grade
   end
 
   def combo(difficulty)
-    return self["#{difficulty}_combo".to_sym]
+    return send(difficulty).combo
   end
 
   def <=>(other)
