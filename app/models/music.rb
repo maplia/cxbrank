@@ -1,4 +1,5 @@
 class Music < ActiveRecord::Base
+  has_many :music_scores, -> {order(:difficulty)}
   attr_accessor :bonus
 
   def self.all_with_bonus_flag(time=nil)
@@ -13,10 +14,10 @@ class Music < ActiveRecord::Base
   end
 
   def level(difficulty)
-    return self["#{difficulty}_level".to_sym]
+    return self.music_scores.where("difficulty = ?", difficulty).first.level
   end
 
   def notes(difficulty)
-    return self["#{difficulty}_notes".to_sym]
+    return self.music_scores.where("difficulty = ?", difficulty).first.notes
   end
 end

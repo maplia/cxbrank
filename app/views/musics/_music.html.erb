@@ -6,12 +6,12 @@
       <small><%= raw music.subtitle %></small>
     <% end %>
   </td>
-  <% DIFFICULTIES.each do |difficulty, data| %>
-    <td class="<%= data[:css_class] %> number">
-      <%= sprintf_for_level(music.level(difficulty)) %>
+  <% DIFFICULTIES.each_value do |difficulty| %>
+    <td class="<%= difficulty[:css_class] %> number">
+      <%= sprintf_for_level(music.level(difficulty[:id])) %>
     </td>
-    <td class="<%= data[:css_class] %> number">
-      <%= sprintf_for_notes(music.notes(difficulty)) %>
+    <td class="<%= difficulty[:css_class] %> number">
+      <%= sprintf_for_notes(music.notes(difficulty[:id])) %>
     </td>
   <% end %>
 </tr>

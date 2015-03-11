@@ -35,7 +35,7 @@ class Skill < ActiveRecord::Base
   def self.default(user, music)
     hash = {
       user_id: user.id, music_id: music.id,
-      best_difficulty: DIFFICULTY_ID_NONE, best_rp: 0.00,
+      best_difficulty: 0, best_rp: 0.00,
     }
     DIFFICULTIES.each_key do |difficulty|
       hash["#{difficulty}_status".to_sym] = PLAY_STATUSES[:noplay][:value]

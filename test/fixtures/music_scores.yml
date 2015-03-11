@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+wannabeyourspecial_std:
+  music: wannabeyourspecial
+  difficulty: 1
+  level: 8.0
+  notes: 89
+
+wannabeyourspecial_hrd:
+  music: wannabeyourspecial
+  difficulty: 2
+  level: 20.0
+  notes: 163
+
+wannabeyourspecial_mas:
+  music: wannabeyourspecial
+  difficulty: 3
+  level: 34.0
+  notes: 230
+
+touchofgold_std:
+  music: touchofgold
+  difficulty: 1
+  level: 9.0
+  notes: 94
+
+touchofgold_hrd:
+  music: touchofgold
+  difficulty: 2
+  level: 22.0
+  notes: 199
+
+touchofgold_mas:
+  music: touchofgold
+  difficulty: 3
+  level: 36.0
+  notes: 276
+
+amenootoganijiwoyobu_std:
+  music: amenootoganijiwoyobu
+  difficulty: 1
+  level: 12.0
+  notes: 91
+
+amenootoganijiwoyobu_hrd:
+  music: amenootoganijiwoyobu
+  difficulty: 2
+  level: 26.0
+  notes: 183
+
+amenootoganijiwoyobu_mas:
+  music: amenootoganijiwoyobu
+  difficulty: 3
+  level: 41.0
+  notes: 262
