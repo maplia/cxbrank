@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20150311202421) do
   end
 
   create_table "music_scores", force: true do |t|
-    t.integer  "music_id"
-    t.integer  "difficulty"
-    t.float    "level",      limit: 24
-    t.integer  "notes"
+    t.integer  "music_id",   null: false
+    t.integer  "difficulty", null: false
+    t.float    "level",      null: false
+    t.integer  "notes",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 20150311202421) do
   end
 
   create_table "skill_scores", force: true do |t|
-    t.integer  "skill_id",              null: false
+    t.integer  "skill_id",   null: false
     t.integer  "status"
     t.boolean  "locked"
     t.integer  "rate"
-    t.float    "rp",         limit: 24
+    t.float    "rp"
     t.integer  "grade"
     t.integer  "combo"
     t.boolean  "ultimate"
@@ -56,61 +56,21 @@ ActiveRecord::Schema.define(version: 20150311202421) do
   end
 
   create_table "skills", force: true do |t|
-    t.integer  "user_id",                         null: false
-    t.integer  "music_id",                        null: false
-    t.integer  "difficulty1_status"
-    t.boolean  "difficulty1_locked"
-    t.integer  "difficulty1_rate"
-    t.float    "difficulty1_rp",       limit: 24
-    t.integer  "difficulty1_grade"
-    t.integer  "difficulty1_combo"
-    t.boolean  "difficulty1_ultimate"
-    t.integer  "difficulty1_score"
-    t.integer  "difficulty2_status"
-    t.boolean  "difficulty2_locked"
-    t.integer  "difficulty2_rate"
-    t.float    "difficulty2_rp",       limit: 24
-    t.integer  "difficulty2_grade"
-    t.integer  "difficulty2_combo"
-    t.boolean  "difficulty2_ultimate"
-    t.integer  "difficulty2_score"
-    t.integer  "difficulty3_status"
-    t.boolean  "difficulty3_locked"
-    t.integer  "difficulty3_rate"
-    t.float    "difficulty3_rp",       limit: 24
-    t.integer  "difficulty3_grade"
-    t.integer  "difficulty3_combo"
-    t.boolean  "difficulty3_ultimate"
-    t.integer  "difficulty3_score"
-    t.integer  "difficulty4_status"
-    t.boolean  "difficulty4_locked"
-    t.integer  "difficulty4_rate"
-    t.float    "difficulty4_rp",       limit: 24
-    t.integer  "difficulty4_grade"
-    t.integer  "difficulty4_combo"
-    t.boolean  "difficulty4_ultimate"
-    t.integer  "difficulty4_score"
-    t.integer  "difficulty5_status"
-    t.boolean  "difficulty5_locked"
-    t.integer  "difficulty5_rate"
-    t.float    "difficulty5_rp",       limit: 24
-    t.integer  "difficulty5_grade"
-    t.integer  "difficulty5_combo"
-    t.boolean  "difficulty5_ultimate"
-    t.integer  "difficulty5_score"
+    t.integer  "user_id",                       null: false
+    t.integer  "music_id",                      null: false
     t.string   "comment"
-    t.integer  "best_difficulty"
-    t.float    "best_rp",              limit: 24
+    t.integer  "best_difficulty", default: 0
+    t.float    "best_rp",         default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
-    t.string   "username",                    null: false
-    t.string   "password",                    null: false
+    t.string   "username",                       null: false
+    t.string   "password",                       null: false
     t.string   "cxbid"
     t.string   "comment"
-    t.float    "rp",               limit: 24
+    t.float    "rp",               default: 0.0
     t.datetime "skill_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"

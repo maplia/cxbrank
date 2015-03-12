@@ -42,6 +42,9 @@ class Skill < ActiveRecord::Base
 
     skill = self.new(hash)
     skill.music = music
+    DIFFICULTIES.each_key do |difficulty|
+      skill.send("#{difficulty}=", SkillScore.default)
+    end
 
     return skill
   end

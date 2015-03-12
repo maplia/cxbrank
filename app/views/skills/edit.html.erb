@@ -66,7 +66,7 @@
   <h2>編集フォーム</h2>
   <div class="subunit">
     <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
-    <%= form_for(@skill, url: url_for(action: :confirm, id: @skill.music.text_id)) do |f| %>
+    <%= form_tag(confirm_skill_path) do %>
       <table class="skill_form">
         <tbody>
           <% DIFFICULTIES.each do |difficulty, data| %>
@@ -76,53 +76,53 @@
               </th>
               <td>
                 <label>
-                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:cleared][:value] %><%= PLAY_STATUSES[:cleared][:text] %>:
+                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:cleared][:value], @skill.status(difficulty) == PLAY_STATUSES[:cleared][:value] %><%= PLAY_STATUSES[:cleared][:text] %>:
                 </label>
                 <label>
                   RP:
-                  <%= f.text_field "#{difficulty}_rp".to_sym, size: 6, maxlength: 6, value: number_with_precision(@skill.rp(difficulty), precision: 2) %>
+                  <%= text_field_tag "[#{difficulty}]rp", @skill.rp(difficulty), size: 6, maxlength: 6, value: number_with_precision(@skill.rp(difficulty), precision: 2) %>
                 </label>
                 <label>
                   CLEAR RATE:
-                  <%= f.text_field "#{difficulty}_rate".to_sym, {size: 3, maxlength: 3} %>%
+                  <%= text_field_tag "[#{difficulty}]rate", @skill.rate(difficulty), {size: 3, maxlength: 3} %>%
                 </label>
                 <label>
                   ランク:
-                  <%= f.select "#{difficulty}_grade".to_sym, GRADE_STATUSES %>
+                  <%= select_tag "[#{difficulty}]grade", options_for_select(GRADE_STATUSES, @skill.grade(difficulty)) %>
                 </label>
                 <label>
                   コンボ:
-                  <%= f.select "#{difficulty}_combo".to_sym, COMBO_STATUSES %>
+                  <%= select_tag "[#{difficulty}]combo", options_for_select(COMBO_STATUSES, @skill.combo(difficulty)) %>
                 </label>
                 <label>
-                  <%= f.check_box "#{difficulty}_ultimate".to_sym %>ULTIMATE
+                  <%= check_box_tag "[#{difficulty}]ultimate", @skill.ultimate(difficulty) %>ULTIMATE
                 </label>
               </td>
             </tr>
             <tr class="<%= data[:css_class] %>">
               <td>
                 <label>
-                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:failed][:value] %><%= PLAY_STATUSES[:failed][:text] %>
+                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:failed][:value], @skill.status(difficulty) == PLAY_STATUSES[:failed][:value] %><%= PLAY_STATUSES[:failed][:text] %>
                 </label>
                 /
                 <label>
-                  <%= f.radio_button "#{difficulty}_status".to_sym, PLAY_STATUSES[:noplay][:value] %><%= PLAY_STATUSES[:noplay][:text] %>
+                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:noplay][:value], @skill.status(difficulty) == PLAY_STATUSES[:noplay][:value] %><%= PLAY_STATUSES[:noplay][:text] %>
                 </label>
                 <label>
-                  <%= f.check_box "#{difficulty}_locked".to_sym %>未取得/ロック譜面
+                  <%= check_box_tag "[#{difficulty}]locked", @skill.locked(difficulty) %>未取得/ロック譜面
                 </label>
               </td>
             </tr>
           <% end %>
           <tr>
             <th>コメント</th>
-            <td><%= f.text_field :comment, size: 100 %></td>
+            <td><%= text_field_tag 'skill[comment]', @skill.comment, size: 100 %></td>
           </tr>
         </tbody>
       </table>
       <p>
-        <%= f.submit %><%= f.submit '削除', name: 'delete', disabled: @skill.new_record? %><input type="reset" value="入力リセット" />
-        <%= f.hidden_field :new_record?, name: 'new_record' %>
+        <%= submit_tag @skill.new_record? ? t('helpers.submit.create') : t('helpers.submit.update') %><%= submit_tag '削除', name: 'delete', disabled: @skill.new_record? %><input type="reset" value="入力リセット" />
+        <%= hidden_field_tag 'new_record', @skill.new_record? %>
       </p>
     <% end %>
   </div>
