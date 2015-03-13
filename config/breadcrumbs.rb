@@ -7,6 +7,11 @@ crumb :musics do
   parent :root
 end
 
+crumb :border do
+  link 'ボーダー表', musics_path
+  parent :root
+end
+
 crumb :skills do
   link 'ランクポイント表', skills_path
   parent :root

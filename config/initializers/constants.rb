@@ -31,6 +31,45 @@ DIFFICULTIES = {
 =end
 }
 
+BORDER_GRADES = {
+  gradeSPP: {
+      id: 1, text: 'S++', upper: 100, lower: 100,
+  },
+  gradeSP: {
+      id: 2, text: 'S+', upper: 100, lower: 98,
+  },
+  gradeS: {
+      id: 3, text: 'S', upper: 98, lower: 95,
+  },
+  gradeAP: {
+      id: 4, text: 'A+', upper: 95, lower: 90,
+  },
+  gradeA: {
+      id: 5, text: 'A', upper: 90, lower: 85,
+  },
+=begin
+  gradeBP: {
+      id: 6, text: 'B+', upper: 85, lower: 80,
+  },
+  gradeB: {
+      id: 7, text: 'B', upper: 80, lower: 75,
+  },
+  gradeC: {
+      id: 8, text: 'C', upper: 75, lower: 70,
+  },
+  gradeD: {
+      id: 9, text: 'D', upper: 70, lower: 65,
+  },
+  gradeE: {
+      id: 10, text: 'E', upper: 65, lower: 0,
+  },
+=end
+}
+
+BORDER_CLEARRATES = [
+    99, 98, 97, 96, 95
+]
+
 PLAY_STATUSES = {
   noplay: {
     value: 0, text: 'プレイなし',
