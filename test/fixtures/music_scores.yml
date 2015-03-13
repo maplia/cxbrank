@@ -1,55 +1,109 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-wannabeyourspecial_std:
+wannabeyourspecial_difficulty1:
   music: wannabeyourspecial
   difficulty: 1
   level: 8.0
   notes: 89
 
-wannabeyourspecial_hrd:
+wannabeyourspecial_difficulty2:
   music: wannabeyourspecial
   difficulty: 2
   level: 20.0
   notes: 163
 
-wannabeyourspecial_mas:
+wannabeyourspecial_difficulty3:
   music: wannabeyourspecial
   difficulty: 3
   level: 34.0
   notes: 230
 
-touchofgold_std:
+touchofgold_difficulty1:
   music: touchofgold
   difficulty: 1
   level: 9.0
   notes: 94
 
-touchofgold_hrd:
+touchofgold_difficulty2:
   music: touchofgold
   difficulty: 2
   level: 22.0
   notes: 199
 
-touchofgold_mas:
+touchofgold_difficulty3:
   music: touchofgold
   difficulty: 3
   level: 36.0
   notes: 276
 
-amenootoganijiwoyobu_std:
+amenootoganijiwoyobu_difficulty1:
   music: amenootoganijiwoyobu
   difficulty: 1
   level: 12.0
   notes: 91
 
-amenootoganijiwoyobu_hrd:
+amenootoganijiwoyobu_difficulty2:
   music: amenootoganijiwoyobu
   difficulty: 2
   level: 26.0
   notes: 183
 
-amenootoganijiwoyobu_mas:
+amenootoganijiwoyobu_difficulty3:
   music: amenootoganijiwoyobu
   difficulty: 3
   level: 41.0
   notes: 262
+
+kimitomusic_difficulty1:
+  music: kimitomusic
+  difficulty: 1
+  level: 10.0
+  notes: 85
+
+kimitomusic_difficulty2:
+  music: kimitomusic
+  difficulty: 2
+  level: 24.0
+  notes: 175
+
+kimitomusic_difficulty3:
+  music: kimitomusic
+  difficulty: 3
+  level: 40.0
+  notes: 326
+
+landingonthemoon_difficulty1:
+  music: landingonthemoon
+  difficulty: 1
+  level: 18.0
+  notes: 148
+
+landingonthemoon_difficulty2:
+  music: landingonthemoon
+  difficulty: 2
+  level: 27.0
+  notes: 210
+
+landingonthemoon_difficulty3:
+  music: landingonthemoon
+  difficulty: 3
+  level: 37.0
+  notes: 297
+
+dirtymouth_difficulty1:
+  music: dirtymouth
+  difficulty: 1
+  level: 12.0
+  notes: 137
+
+dirtymouth_difficulty2:
+  music: dirtymouth
+  difficulty: 2
+  level: 25.0
+  notes: 242
+
+dirtymouth_difficulty3:
+  music: dirtymouth
+  difficulty: 3
+  level: 50.0
+  notes: 360

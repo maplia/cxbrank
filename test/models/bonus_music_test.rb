@@ -11,7 +11,6 @@ class BonusMusicTest < ActiveSupport::TestCase
       bonus_musics(:bonus201401_1).music_id,
       bonus_musics(:bonus201401_2).music_id,
       bonus_musics(:bonus201401_3).music_id,
-      bonus_musics(:bonus201401_4).music_id,
     ]
   end
 

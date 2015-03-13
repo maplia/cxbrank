@@ -1,11 +1,34 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+testuser1_dirtymouth_difficulty1:
+  skill: testuser1_dirtymouth
+  difficulty: 1
+  status: 0
+  locked: true
+  ultimate: false
+  rate: 0
+  rp: 0
+  grade: 0
+  combo: 0
+
+testuser1_dirtymouth_difficulty2:
+  skill: testuser1_dirtymouth
+  difficulty: 2
+  status: 1
+  locked: false
+  ultimate: false
+  rate: 0
+  rp: 0
+  grade: 0
+  combo: 0
+
+testuser1_dirtymouth_difficulty3:
+  skill: testuser1_dirtymouth
+  difficulty: 3
+  status: 2
+  locked: true
+  ultimate: true
+  rate: 100
+  rp: <%= 50.0 * 1.2 %>
+  grade: 1
+  combo: 2

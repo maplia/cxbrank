@@ -23,14 +23,14 @@ class MusicTest < ActiveSupport::TestCase
   end
 
   test "level" do
-    assert_equal musics(:wannabeyourspecial).difficulty1_level, @music.level(:difficulty1)
-    assert_equal musics(:wannabeyourspecial).difficulty2_level, @music.level(:difficulty2)
-    assert_equal musics(:wannabeyourspecial).difficulty3_level, @music.level(:difficulty3)
+    assert_equal music_scores(:wannabeyourspecial_difficulty1).level, @music.level(:difficulty1)
+    assert_equal music_scores(:wannabeyourspecial_difficulty2).level, @music.level(:difficulty2)
+    assert_equal music_scores(:wannabeyourspecial_difficulty3).level, @music.level(:difficulty3)
   end
 
   test "notes" do
-    assert_equal musics(:wannabeyourspecial).difficulty1_notes, @music.notes(:difficulty1)
-    assert_equal musics(:wannabeyourspecial).difficulty2_notes, @music.notes(:difficulty2)
-    assert_equal musics(:wannabeyourspecial).difficulty3_notes, @music.notes(:difficulty3)
+    assert_equal music_scores(:wannabeyourspecial_difficulty1).notes, @music.notes(:difficulty1)
+    assert_equal music_scores(:wannabeyourspecial_difficulty2).notes, @music.notes(:difficulty2)
+    assert_equal music_scores(:wannabeyourspecial_difficulty3).notes, @music.notes(:difficulty3)
   end
 end

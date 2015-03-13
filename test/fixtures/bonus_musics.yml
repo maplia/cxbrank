@@ -1,10 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-
 bonus201312_1:
   music: wannabeyourspecial
   period_start: 2013-12-02 04:00
@@ -32,10 +27,5 @@ bonus201401_2:
 
 bonus201401_3:
   music: dirtymouth
-  period_start: 2013-12-27 15:00
-  period_end: 9999-12-31 04:00
-
-bonus201401_4:
-  music: lotuslove
   period_start: 2013-12-27 15:00
   period_end: 9999-12-31 04:00

@@ -1,4 +1,5 @@
 class Skill < ActiveRecord::Base
+  belongs_to :user
   belongs_to :music
   has_many :skill_scores
   attr_accessor :difficulty1, :difficulty2, :difficulty3, :difficulty4, :difficulty5

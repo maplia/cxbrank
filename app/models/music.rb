@@ -5,7 +5,7 @@ class Music < ActiveRecord::Base
 
   def self.all_with_bonus_flag(time=nil)
     bonus_musics = BonusMusic.past(time)
-    musics = self.includes(:music_scores).order(:number)
+    musics = includes(:music_scores).order(:number)
 
     musics.each do |music|
       music.bonus = bonus_musics.pluck(:music_id).include?(music.id)
@@ -24,10 +24,10 @@ class Music < ActiveRecord::Base
   end
 
   def level(difficulty)
-    return send(difficulty).level
+    return music_scores.index_by(&:difficulty)[DIFFICULTIES[difficulty][:id]].level
   end
 
   def notes(difficulty)
-    return send(difficulty).notes
+    return music_scores.index_by(&:difficulty)[DIFFICULTIES[difficulty][:id]].notes
   end
 end
