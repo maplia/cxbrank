@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def sprintf_for_diff_rp(rp)
-    return rp != 0 ? sprintf('%+.2f', rp) : '-'
+    return (rp and rp != 0) ? sprintf('%+.2f', rp) : '-'
   end
 
   def sprintf_for_rate(rate)

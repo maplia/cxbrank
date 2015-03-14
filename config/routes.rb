@@ -1,10 +1,9 @@
 Cxbrank::Application.routes.draw do
-  get "iglock/show"
   get  'login',                to: 'login#index'
   post 'login/auth'
 
   resources :musics, only: ['index']
-  resources :skills, only: ['index', 'edit', 'create', 'update', 'destroy'] do
+  resources :skills, only: ['index', 'edit', 'update', 'destroy'] do
     member do
       post 'confirm'
       patch 'confirm'

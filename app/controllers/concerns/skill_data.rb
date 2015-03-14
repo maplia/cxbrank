@@ -2,7 +2,7 @@ module SkillData
   extend ActiveSupport::Concern
 
   included do
-    def get_skill_data(user, registered_only, ignore_locked=false)
+    def get_skill_data(user, registered_only=false, ignore_locked=false)
       data = {}
 
       LIST_BLOCKS.each do |key, value|
@@ -12,7 +12,7 @@ module SkillData
         }
       end
 
-      Skill.select_by_user(user, ignore_locked).each do |skill|
+      Skill.select_by_user(user, registered_only, ignore_locked).each do |skill|
         next if registered_only and skill.new_record?
 
         if skill.music.bonus

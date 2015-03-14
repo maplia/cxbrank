@@ -10,54 +10,7 @@
       <p>ランクポイント情報が登録されていません</p>
     <% else %>
       <p>最終更新時刻: <%= l @skill.updated_at %></p>
-      <table class="skill_confirm">
-        <thead>
-          <tr>
-            <th class="level" colspan="2">レベル</th>
-            <th class="icon"><%= image_tag 'locked.png', alt: '[L]', height: 12 %></th>
-            <th class="icon"><%= image_tag 'ultimate.png', alt: '[U]', height: 12 %></th>
-            <th class="rp">RP</th><th class="rate">RATE</th><th class="rate">ULT</th>
-            <th class="mark">ランク</th><th class="mark">コンボ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% DIFFICULTIES.each do |difficulty, data| %>
-            <tr class="<%= data[:css_class] %>">
-              <th><%= image_tag data[:img_src], alt: data[:abbr], height: 12 %></th>
-              <td><%= sprintf_for_level(@skill.music.level(difficulty)) %></td>
-              <% case @skill.status(difficulty) %>
-              <% when PLAY_STATUSES[:noplay][:value] %>
-                <td class="mark" colspan="7"><%= PLAY_STATUSES[:noplay][:text] %></td>
-              <% when PLAY_STATUSES[:failed][:value] %>
-                <td class="mark" colspan="7"><%= PLAY_STATUSES[:failed][:text] %></td>
-              <% when PLAY_STATUSES[:cleared][:value] %>
-                <td class="icon">
-                  <% if @skill.locked(difficulty) %>
-                    <%= image_tag 'locked.png', alt: '[L]', height: 12 %>
-                  <% end %>
-                </td>
-                <td class="icon">
-                  <% if @skill.ultimate(difficulty) %>
-                    <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>
-                  <% end %>
-                </td>
-                <td class="rp"><%= sprintf_for_rp(@skill.rp(difficulty)) %></td>
-                <td class="rate"><%= sprintf_for_rate(@skill.rate(difficulty)) %></td>
-                <td class="rate"><%= sprintf_for_rate(@skill.ultimate_rate(difficulty)) %></td>
-                <td class="mark">
-                  <%= GRADE_STATUSES[@skill.grade(difficulty)][0] %>
-                </td>
-                <td class="mark">
-                  <%= COMBO_STATUSES[@skill.combo(difficulty)][0] %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-    <% if @skill.comment and !@skill.comment.empty? %>
-      <p>コメント: <%= @skill.comment %></p>
+      <%= render 'view', skill: @skill_old, skill_old: nil %>
     <% end %>
   </div>
 </div>
@@ -66,10 +19,13 @@
   <h2>編集フォーム</h2>
   <div class="subunit">
     <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
+    <p><em>RP省略時はクリアレートより自動計算します</em></p>
     <%= form_tag(confirm_skill_path) do %>
       <table class="skill_form">
         <tbody>
           <% DIFFICULTIES.each do |difficulty, data| %>
+            <% next unless @skill.music.difficulty_exist?(difficulty) %>
+          
             <tr class="<%= data[:css_class] %>">
               <th class="difficulty" rowspan="2">
                 <%= image_tag data[:img_src], alt: data[:abbr], height: 12 %>
@@ -95,7 +51,7 @@
                   <%= select_tag "[#{difficulty}]combo", options_for_select(COMBO_STATUSES, @skill.combo(difficulty)) %>
                 </label>
                 <label>
-                  <%= check_box_tag "[#{difficulty}]ultimate", @skill.ultimate(difficulty) %>ULTIMATE
+                  <%= check_box_tag "[#{difficulty}]ultimate", true, checked = @skill.ultimate(difficulty) %>ULTIMATE
                 </label>
               </td>
             </tr>
@@ -109,7 +65,7 @@
                   <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:noplay][:value], @skill.status(difficulty) == PLAY_STATUSES[:noplay][:value] %><%= PLAY_STATUSES[:noplay][:text] %>
                 </label>
                 <label>
-                  <%= check_box_tag "[#{difficulty}]locked", @skill.locked(difficulty) %>未取得/ロック譜面
+                  <%= check_box_tag "[#{difficulty}]locked", true, checked = @skill.locked(difficulty) %>未取得/ロック譜面
                 </label>
               </td>
             </tr>

@@ -6,86 +6,25 @@
 <div class="unit">
   <h2>入力情報</h2>
   <div class="subunit">
-    <table class="skill_confirm">
-      <thead>
-        <tr>
-          <th class="level" colspan="2">レベル</th>
-          <th class="icon"><%= image_tag 'locked.png', alt: '[L]', height: 12 %></th>
-          <th class="icon"><%= image_tag 'ultimate.png', alt: '[U]', height: 12 %></th>
-          <th class="rp">RP</th>
-          <% unless session[:action] == :destroy %>
-            <th class="rp">差異</th>
-          <% end %>
-          <th class="rate">RATE</th><th class="rate">ULT</th>
-          <th class="mark">ランク</th><th class="mark">コンボ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% DIFFICULTIES.each do |difficulty, data| %>
-          <%
-            diff_rp = @skill.rp(difficulty) - @skill_old.rp(difficulty)
-            if diff_rp > 0
-              diff_rp_class = 'diff_inc'
-            elsif diff_rp < 0
-              diff_rp_class = 'diff_dec'
-            end
-            col_count = (session[:action] == :destroy ? 7 : 8)
-          %>
-
-          <tr class="<%= data[:css_class] %>">
-            <th><%= image_tag data[:img_src], alt: data[:abbr], height: 12 %></th>
-            <td><%= sprintf_for_level(@skill.music.level(difficulty)) %></td>
-            <% case @skill.status(difficulty) %>
-            <% when PLAY_STATUSES[:noplay][:value] %>
-              <td class="mark" colspan="<%= col_count %>"><%= PLAY_STATUSES[:noplay][:text] %></td>
-            <% when PLAY_STATUSES[:failed][:value] %>
-              <td class="mark" colspan="<%= col_count %>"><%= PLAY_STATUSES[:failed][:text] %></td>
-            <% when PLAY_STATUSES[:cleared][:value] %>
-              <td class="icon">
-                <% if @skill.locked(difficulty) %>
-                  <%= image_tag 'locked.png', alt: '[L]', height: 12 %>
-                <% end %>
-              </td>
-              <td class="icon">
-                <% if @skill.ultimate(difficulty) %>
-                  <%= image_tag 'ultimate.png', alt: '[U]', height: 12 %>
-                <% end %>
-              </td>
-              <td class="rp"><%= sprintf_for_rp(@skill.rp(difficulty)) %></td>
-              <% unless session[:action] == :destroy %>
-                <td class="rp <%= diff_rp_class %>"><%= sprintf_for_diff_rp(diff_rp) %></td>
-              <% end %>
-              <td class="rate"><%= sprintf_for_rate(@skill.rate(difficulty)) %></td>
-              <td class="rate"><%= sprintf_for_rate(@skill.ultimate_rate(difficulty)) %></td>
-              <td class="mark">
-                <%= GRADE_STATUSES[@skill.grade(difficulty)][0] %>
-              </td>
-              <td class="mark">
-                <%= COMBO_STATUSES[@skill.combo(difficulty)][0] %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <% if !@skill.comment.empty? %>
-      <p>コメント: <% @skill.comment %></p>
-    <% end %>
+    <%= render 'view', skill: @skill, skill_old: @skill_old %>
   </div>
   
   <%
-    case session[:action]
+    case session[:operation]
     when :create
       operation_text = '登録'
+      method = 'put'
     when :update
       operation_text = '更新'
+      method = 'patch'
     when :destroy
       operation_text = '削除'
+      method = 'delete'
     end
   %>
 
-  <%= form_for(@skill, url: url_for(action: session[:action], id: @skill.music.text_id)) do |f| %>
+  <%= form_tag(skill_path(@skill.music.text_id), method: method) do %>
     <p>以上のランクポイント情報を<%= operation_text %>します。よろしいですか?</p>
-    <%= f.submit 'はい', name: 'yes' %><%= f.submit 'いいえ', name: 'no' %>
+    <%= submit_tag 'はい', name: 'yes' %><%= submit_tag 'いいえ', name: 'no' %>
   <% end %>
 </div>

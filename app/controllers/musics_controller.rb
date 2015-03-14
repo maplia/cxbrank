@@ -1,4 +1,6 @@
 class MusicsController < ApplicationController
+  skip_before_filter :check_logined
+
   def index
     @page_title = '登録曲リスト'
     @blocks = {
