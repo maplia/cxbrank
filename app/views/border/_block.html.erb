@@ -1,0 +1,30 @@
+<div class="unit">
+  <div class="subunit">
+    <table id="<%= block[:id] %>" class="music_list">
+      <thead>
+        <tr>
+          <th class="number" rowspan="2">#</th>
+          <th rowspan="2">タイトル</th>
+          <th rowspan="2">難易度</th>
+          <th class="level" rowspan="2">Lv</th>
+          <th class="notes" rowspan="2">Notes</th>
+          <th class="grade" colspan="<%= BORDER_GRADES.length %>">Grade</th>
+          <th class="clearrate" colspan="<%= BORDER_CLEARRATES.length %>">クリアレート</th>
+        </tr>
+        <tr>
+        <% BORDER_GRADES.each do |grade, data| %>
+          <th class="number"><%= data[:text] %></th>
+        <% end %>
+        <% BORDER_CLEARRATES.each do |rate, data| %>
+          <th class="number"><%= rate %>%</th>
+        <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% block[:musics].each do |music| %>
+          <%= render 'music', music: music %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

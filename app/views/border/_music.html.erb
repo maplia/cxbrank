@@ -1,0 +1,34 @@
+<tr>
+  <th class="number" rowspan="3"><%= music.number %></th>
+  <td class="title text" rowspan="3">
+    <%= raw music.title %>
+    <% if music.subtitle %>
+      <small><%= raw music.subtitle %></small>
+    <% end %>
+  </td>
+  <% DIFFICULTIES.each do |difficulty, data| %>
+  <% if data[:id] != 1 %>
+          <tr>
+  <% end %>
+    <td class="<%= data[:css_class] %>">
+      <%= data[:abbr] %>
+    </td>
+    <td class="<%= data[:css_class] %> number">
+      <%= sprintf_for_level(music.level(difficulty)) %>
+    </td>
+    <td class="<%= data[:css_class] %> number">
+      <%= sprintf_for_notes(music.notes(difficulty)) %>
+    </td>
+    <% BORDER_GRADES.each do |grade, gradeData| %>
+      <td class="<%= data[:css_class] %> number">
+        <%= sprintf_for_notes((music.notes(difficulty) * (100 - gradeData[:lower]) / 100).floor) %>
+      </td>
+    <% end %>
+    <% BORDER_CLEARRATES.each do |rate, rateData| %>
+      <td class="<%= data[:css_class] %> number">
+        <%= sprintf_for_notes((music.notes(difficulty) * (100 - rate) / 100 / 0.4).floor) %>
+      </td>
+    <% end %>
+</tr>
+
+  <% end %>

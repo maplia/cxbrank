@@ -2,6 +2,8 @@ Cxbrank::Application.routes.draw do
   get  'login',                to: 'login#index'
   post 'login/auth'
 
+  resources :border, only: ['index']
+
   resources :musics, only: ['index']
   resources :skills, only: ['index', 'edit', 'update', 'destroy'] do
     member do
