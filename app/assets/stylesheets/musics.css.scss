@@ -2,14 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*==============
+  music_list
+  ==============*/
 table.music_list thead tr th.number {
   width: 2.5em;
 }
-
+table.music_list thead tr th.title {
+  width: 25.0em;
+}
 table.music_list thead tr th.level {
   width: 2.5em;
 }
-
 table.music_list thead tr th.notes {
   width: 3.5em;
 }

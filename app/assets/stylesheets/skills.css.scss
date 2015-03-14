@@ -2,6 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*==============
+  text-align
+  ==============*/
+td.rp {
+  text-align: right;
+}
+td.rate {
+  text-align: right;
+}
+td.mark {
+  text-align: center;
+}
+td.icon {
+  text-align: center;
+}
+
+/*==============
+  skill_list
+  ==============*/
 table.skill_list thead tr th.rank {
   width: 2.0em;
 }
@@ -20,16 +39,18 @@ table.skill_list thead tr th.rate {
 table.skill_list thead tr th.mark {
   width: 3.5em;
 }
-
 table.skill_list tbody tr th.target {
   color: red;
-  background-color: #ccffcc;
+  background-color: #ffdddd;
 }
 table.skill_list tbody tr th.untarget {
   color: #006600;
   background-color: #ccffcc;
 }
 
+/*==============
+  skill_sum
+  ==============*/
 table.skill_sum thead th {
   width: 9.0em;
 }
@@ -40,6 +61,9 @@ table.skill_sum tbody td {
   font-weight: bold;
 }
 
+/*==============
+  skill_confirm
+  ==============*/
 table.skill_confirm thead tr th.rp {
   width: 4.0em;
 }
@@ -52,9 +76,6 @@ table.skill_confirm thead tr th.mark {
 table.skill_confirm thead tr th.icon {
   width: 1.5em;
 }
-table.skill_confirm tbody tr td.icon {
-  text-align: center;
-}
 table.skill_confirm tbody tr td.diff_inc {
   color: red;
   font-weight: bold;
@@ -64,6 +85,9 @@ table.skill_confirm tbody tr td.diff_dec {
   font-weight: bold;
 }
 
-table.skill_form tbody tr td {
-  text-align: left;
+/*==============
+  user_info
+  ==============*/
+table.user_info tbody tr td p {
+  margin: 0;
 }

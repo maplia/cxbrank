@@ -3,6 +3,8 @@
 
 <h1><%= raw h1_title(@page_title, @page_subtitle) %></h1>
 
+<%= render 'shared/user', user: @user, edit: false %>
+
 <%= render 'shared/skill_sum', data: @data %>
 
 <% @data.each_value do |block_data| %>

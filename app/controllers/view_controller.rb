@@ -4,10 +4,10 @@ class ViewController < ApplicationController
   include SkillData
 
   def show
-    user = User.where('id = ?', params[:id].to_i).first
-    raise Cxbrank::UserNotFoundError unless user
+    @user = User.where('id = ?', params[:id].to_i).first
+    raise Cxbrank::UserNotFoundError unless @user
 
-    @page_title = "#{user.username}さんのランクポイント表"
-    @data = get_skill_data(user, true)
+    @page_title = "#{@user.username}さんのランクポイント表"
+    @data = get_skill_data(@user, true)
   end
 end

@@ -19,6 +19,10 @@ module ApplicationHelper
     end
   end
 
+  def sprintf_for_user_id(id)
+    return sprintf('%05d', id)
+  end
+
   def sprintf_for_level(level)
     return level ? sprintf('%.1f', level) : '-'
   end

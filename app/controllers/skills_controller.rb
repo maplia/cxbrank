@@ -2,17 +2,17 @@ class SkillsController < ApplicationController
   include SkillData
 
   def index
-    user = User.where('id = ?', session[:user_id]).first
+    @user = User.where('id = ?', session[:user_id]).first
 
-    @page_title = "#{user.username}さんのランクポイント表"
-    @data = get_skill_data(user)
+    @page_title = "#{@user.username}さんのランクポイント表"
+    @data = get_skill_data(@user)
   end
 
   def edit
-    user = User.where('id = ?', session[:user_id]).first
+    @user = User.where('id = ?', session[:user_id]).first
     music = Music.where('text_id = ?', params[:id]).first
 
-    @skill_old = Skill.select_by_user_and_music(user, music)
+    @skill_old = Skill.select_by_user_and_music(@user, music)
     @skill = Marshal.load(Marshal.dump(@skill_old))
     load_skill_params(@skill) if music.id == session[:music_id]
 

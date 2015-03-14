@@ -4,7 +4,7 @@
     <table id="<%= block[:id] %>" class="music_list">
       <thead>
         <tr>
-          <th class="number">#</th><th>タイトル</th>
+          <th class="number">#</th><th class="title">タイトル</th>
           <% DIFFICULTIES.each do |difficulty, data| %>
             <th class="<%= data[:css_class] %> level"><%= data[:abbr] %><br/>Lv</th>
             <th class="<%= data[:css_class] %> notes"><%= data[:abbr] %><br/>Notes</th>

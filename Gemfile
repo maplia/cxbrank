@@ -54,3 +54,6 @@ gem 'seed-fu'
 
 # Use breadcrumb navigation
 gem 'gretel'
+
+# Use auto link
+gem 'rails_autolink'
