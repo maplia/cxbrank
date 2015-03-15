@@ -1,10 +1,22 @@
 Cxbrank::Application.routes.draw do
+
   get  'login',                to: 'login#index'
   post 'login/auth'
 
-  resources :border, only: ['index']
+  resources :users, only: ['index', 'new', 'create'] do
+    collection do
+      post 'confirm'
+    end
+  end
+  resource :user, only: ['edit', 'update'] do
+    member do
+      patch 'confirm'
+    end
+  end
 
   resources :musics, only: ['index']
+  resources :border, only: ['index']
+
   resources :skills, only: ['index', 'edit', 'update', 'destroy'] do
     member do
       post 'confirm'

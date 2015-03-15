@@ -1,0 +1,16 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*==============
+  user_list
+  ==============*/
+table.user_list thead tr th.name {
+  width: 10.0em;
+}
+table.user_list thead tr th.rp {
+  width: 4.0em;
+}
+table.user_list thead tr th.comment {
+  width: 19.0em;
+}

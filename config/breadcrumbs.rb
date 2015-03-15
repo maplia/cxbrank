@@ -2,13 +2,33 @@ crumb :root do
   link APP_INFO[:name], root_path
 end
 
+crumb :users do
+  link '登録ユーザーリスト', users_path
+  parent :root
+end
+
+crumb :new_user do
+  link 'ユーザー登録', new_user_path
+  parent :root
+end
+
+crumb :confirm_user do
+  link 'ユーザー登録確認', confirm_user_path
+  parent :root
+end
+
+crumb :create_user do
+  link 'ユーザー登録完了', user_path
+  parent :root
+end
+
 crumb :musics do
   link '登録曲リスト', musics_path
   parent :root
 end
 
 crumb :border do
-  link 'ボーダー表', musics_path
+  link 'ボーダー表', border_index_path
   parent :root
 end
 

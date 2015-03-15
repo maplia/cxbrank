@@ -1,0 +1,8 @@
+<% breadcrumb :create_user %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title, @page_subtitle) %></h1>
+
+<p>ユーザーID「<strong><%= sprintf_for_user_id(@user.id) %></strong>」で登録されました</p>
+<p>今後ログインする際にはこのユーザーIDが必要になるため、忘れないようにしてください</p>
+<p><%= link_to 'ランクポイント表編集へ進む', skills_path %></p>

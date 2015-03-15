@@ -1,0 +1,31 @@
+<% breadcrumb :confirm_user %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title, @page_subtitle) %></h1>
+
+<div class="unit">
+  <h2>入力情報</h2>
+  <div class="subunit">
+    <table>
+      <tbody>
+        <tr>
+          <th>ユーザー名</th><td><%= @user.username %></td>
+        </tr>
+        <tr>
+          <th>パスワード</th><td><%= @user.password.gsub!(/./, '*') %></td>
+        </tr>
+        <tr>
+          <th>C×B ID</th><td><%= @user.cxbid.empty? ? '（登録なし）' : @user.cxbid %></td>
+        </tr>
+        <tr>
+          <th>コメント</th><td><%= @user.comment.empty? ? '（登録なし）' : simple_format(raw(@user.comment)) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <%= form_for(@user) do |f| %>
+    <p>以上のユーザー情報を登録します。よろしいですか?</p>
+    <%= f.submit 'はい', name: 'yes' %><%= f.submit 'いいえ', name: 'no' %>
+  <% end %>
+</div>

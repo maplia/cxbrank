@@ -1,0 +1,30 @@
+<% breadcrumb :new_user %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title) %></h1>
+
+<div class="unit">
+  <h2>入力フォーム</h2>
+  <div class="subunit">
+    <p><em>*印</em>がついている項目は入力必須項目です。ここで入力した項目はユーザー登録後も変更可能です</p>
+    <%= form_for(@user, url: confirm_users_path) do |f| %>
+      <dl>
+        <dt><%= f.label :username, 'ユーザー名' %> <em>*</em></dt>
+        <dd><%= f.text_field :username, size: 30, maxlength: 30 %></dd>
+        <dt><%= f.label :password, 'パスワード' %> <em>*</em></dt>
+        <dd><%= f.password_field :password, size: 20, maxlength: 50 %></dd>
+        <dt><%= f.label :password_confirmation, 'パスワード（確認用）' %> <em>*</em></dt>
+        <dd><%= f.password_field :password_confirmation, size: 20, maxlength: 50 %></dd>
+        <dt><%= f.label :cxbid, 'CROSS×BEATS ID' %></dt>
+        <dd><%= f.text_field :cxbid, size: 8, maxlength: 8 %></dd>
+        <dt><%= f.label :comment, 'ユーザーコメント' %>（HTMLタグによる文字装飾はできません。URLには自動的にリンクが設定されます）</dt>
+        <dd><%= f.text_area :comment, cols: 70, rows: 6 %></dd>
+      </dl>
+      <p>
+        <%= f.submit %><input type="reset" value="入力リセット" />
+        <%= f.hidden_field :new_record? %>
+      </p>
+    <% end %>
+  </div>
+</div>
+  

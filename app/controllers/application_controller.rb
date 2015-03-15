@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :check_logined
+  before_action :set_request_variant
   rescue_from Cxbrank::UserNotFoundError, with: :report_user_not_found
 
   private
@@ -12,6 +13,11 @@ class ApplicationController < ActionController::Base
       flash[:referer] = request.fullpath
       redirect_to :login
     end
+  end
+
+  # http://k0kubun.hatenablog.com/entry/2014/11/21/041949
+  def set_request_variant
+    request.variant = request.device_type
   end
 
   def report_user_not_found

@@ -1,0 +1,21 @@
+<% breadcrumb :users %>
+<%= breadcrumbs %>
+
+<h1><%= raw h1_title(@page_title) %></h1>
+
+<div class="unit">
+  <h2></h2>
+  <div class="subunit">
+    <table class="user_list">
+      <thead>
+        <th>ユーザーID</th><th class="name">ユーザ名</th>
+        <th>C×B ID</th><th class="rp">RP</th><th class="comment">コメント</th><th>最終更新時刻</th>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <%= render 'user', user: user %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

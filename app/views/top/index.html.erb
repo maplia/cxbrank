@@ -27,7 +27,7 @@
         </dd>
         <dt>■ユーザー未登録の方</dt>
           <dd>
-            <p>新規ユーザー登録</p>
+            <p><%= link_to '新規ユーザー登録', new_user_path %></p>
           </dd>
         </dl>
       </div>
@@ -36,7 +36,7 @@
     <div class="unit">
       <h2>登録ユーザーリスト</h2>
       <div class="subunit">
-        <p>登録ユーザーリスト</p>
+        <p><%= link_to '登録ユーザーリスト', :users %></p>
       </div>
     </div>
 
@@ -44,6 +44,13 @@
       <h2>登録曲リスト</h2>
       <div class="subunit">
         <p><%= link_to '登録曲リスト', :musics %></p>
+      </div>
+    </div>
+
+    <div class="unit">
+      <h2>その他ツール</h2>
+      <div class="subunit">
+        <p><%= link_to 'ボーダー表', :border_index %></p>
       </div>
     </div>
   </div>
