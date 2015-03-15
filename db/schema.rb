@@ -14,64 +14,64 @@
 ActiveRecord::Schema.define(version: 20150311202421) do
 
   create_table "bonus_musics", force: :cascade do |t|
-    t.integer  "music_id",     limit: 4, null: false
-    t.datetime "period_start",           null: false
-    t.datetime "period_end",             null: false
+    t.integer  "music_id",     null: false
+    t.datetime "period_start", null: false
+    t.datetime "period_end",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "music_scores", force: :cascade do |t|
-    t.integer  "music_id",   limit: 4,  null: false
-    t.integer  "difficulty", limit: 4,  null: false
-    t.float    "level",      limit: 24, null: false
-    t.integer  "notes",      limit: 4,  null: false
+    t.integer  "music_id",   null: false
+    t.integer  "difficulty", null: false
+    t.float    "level",      null: false
+    t.integer  "notes",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "musics", force: :cascade do |t|
-    t.integer  "number",     limit: 4,   null: false
-    t.string   "text_id",    limit: 255, null: false
-    t.string   "title",      limit: 255, null: false
-    t.string   "subtitle",   limit: 255
-    t.string   "sortkey",    limit: 255, null: false
-    t.datetime "added_at",               null: false
+    t.integer  "number",     null: false
+    t.string   "text_id",    null: false
+    t.string   "title",      null: false
+    t.string   "subtitle"
+    t.string   "sortkey",    null: false
+    t.datetime "added_at",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "skill_scores", force: :cascade do |t|
-    t.integer  "skill_id",   limit: 4,  null: false
-    t.integer  "difficulty", limit: 4,  null: false
-    t.integer  "status",     limit: 4
-    t.boolean  "locked",     limit: 1
-    t.integer  "rate",       limit: 4
-    t.float    "rp",         limit: 24
-    t.integer  "grade",      limit: 4
-    t.integer  "combo",      limit: 4
-    t.boolean  "ultimate",   limit: 1
-    t.integer  "score",      limit: 4
+    t.integer  "skill_id",   null: false
+    t.integer  "difficulty", null: false
+    t.integer  "status"
+    t.boolean  "locked"
+    t.integer  "rate"
+    t.float    "rp"
+    t.integer  "grade"
+    t.integer  "combo"
+    t.boolean  "ultimate"
+    t.integer  "score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "skills", force: :cascade do |t|
-    t.integer  "user_id",         limit: 4,                 null: false
-    t.integer  "music_id",        limit: 4,                 null: false
-    t.string   "comment",         limit: 255
-    t.integer  "best_difficulty", limit: 4,   default: 0
-    t.float    "best_rp",         limit: 24,  default: 0.0
+    t.integer  "user_id",                       null: false
+    t.integer  "music_id",                      null: false
+    t.string   "comment"
+    t.integer  "best_difficulty", default: 0
+    t.float    "best_rp",         default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",         limit: 255,               null: false
-    t.string   "password",         limit: 255,               null: false
-    t.string   "cxbid",            limit: 255
-    t.string   "comment",          limit: 255
-    t.float    "rp",               limit: 24,  default: 0.0
+    t.string   "username",                       null: false
+    t.string   "password",                       null: false
+    t.string   "cxbid"
+    t.string   "comment"
+    t.float    "rp",               default: 0.0
     t.datetime "skill_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"

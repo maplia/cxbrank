@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def confirm
     session[:user] = params.require(:user).permit([:username, :password, :cxbid, :comment])
-    session[:user][:comment] = ERB::Util.html_escape(session[:user][:comment]).gsub!(/&amp;/, '&')
+    session[:user][:comment] = ERB::Util.html_escape(session[:user][:comment]).gsub(/&amp;/, '&')
 
     @user = User.new
     @user.attributes = session[:user]
