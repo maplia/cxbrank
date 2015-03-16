@@ -10,13 +10,33 @@
     <%= form_for(@user, url: confirm_users_path) do |f| %>
       <dl>
         <dt><%= f.label :username, 'ユーザー名' %> <em>*</em></dt>
-        <dd><%= f.text_field :username, size: 30, maxlength: 30 %></dd>
+        <dd>
+          <%= f.text_field :username, size: 30, maxlength: 30 %>
+          <% unless @user.errors.messages[:username].empty? %>
+            <em><%= @user.errors.messages[:username].join('/') %></em>
+          <% end %>
+        </dd>
         <dt><%= f.label :password, 'パスワード' %> <em>*</em></dt>
-        <dd><%= f.password_field :password, size: 20, maxlength: 50 %></dd>
+        <dd>
+          <%= f.password_field :password, size: 20, maxlength: 50 %>
+          <% unless @user.errors.messages[:password].empty? %>
+            <em><%= @user.errors.messages[:password].join('/') %></em>
+          <% end %>
+        </dd>
         <dt><%= f.label :password_confirmation, 'パスワード（確認用）' %> <em>*</em></dt>
-        <dd><%= f.password_field :password_confirmation, size: 20, maxlength: 50 %></dd>
+        <dd>
+          <%= f.password_field :password_confirmation, size: 20, maxlength: 50 %>
+          <% unless @user.errors.messages[:password_confirmation].empty? %>
+            <em><%= @user.errors.messages[:password_confirmation].join('/') %></em>
+          <% end %>
+        </dd>
         <dt><%= f.label :cxbid, 'CROSS×BEATS ID' %></dt>
-        <dd><%= f.text_field :cxbid, size: 8, maxlength: 8 %></dd>
+        <dd>
+          <%= f.text_field :cxbid, size: 8, maxlength: 8 %>
+          <% unless @user.errors.messages[:cxbid].empty? %>
+            <em><%= @user.errors.messages[:cxbid].join('/') %></em>
+          <% end %>
+        </dd>
         <dt><%= f.label :comment, 'ユーザーコメント' %>（HTMLタグによる文字装飾はできません。URLには自動的にリンクが設定されます）</dt>
         <dd><%= f.text_area :comment, cols: 70, rows: 6 %></dd>
       </dl>
