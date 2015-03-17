@@ -12,8 +12,10 @@ class UsersController < ApplicationController
     @user.attributes = session[:user] if session[:user]
 
     if session[:user_errors]
-      session[:user_errors].each do |error|
-        @user.errors.add(error[0], error[1])
+      session[:user_errors].each do |name, messages|
+        messages.each do |message|
+          @user.errors.add(name, message)
+        end
       end
       session[:user_errors] = nil
     end
