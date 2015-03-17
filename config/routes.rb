@@ -5,7 +5,7 @@ Cxbrank::Application.routes.draw do
 
   resources :users, only: ['index', 'new', 'create'] do
     collection do
-      post 'confirm'
+      post 'confirm_new'
     end
   end
   resource :user, only: ['edit', 'update'] do

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_filter :check_logined
+  skip_before_action :check_logined
+  include ParamUtil
 
   def index
     @users = User.all
@@ -8,31 +9,21 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
-    @user.attributes = session[:user] if session[:user]
-
-    if session[:user_errors]
-      session[:user_errors].each do |name, messages|
-        messages.each do |message|
-          @user.errors.add(name, message)
-        end
-      end
-      session[:user_errors] = nil
-    end
+    @user = User.new(session[:user])
+    @user.add_errors(session[:user_error_messages])
+    session[:user_error_messages] = nil
 
     @page_title = 'ユーザー登録'
   end
 
-  def confirm
+  def confirm_new
     session[:user] = params.require(:user).permit([
       :username, :password, :password_confirmation, :cxbid, :comment,
     ])
-    session[:user][:comment] = ERB::Util.html_escape(session[:user][:comment]).gsub(/&amp;/, '&')
 
-    @user = User.new
-    @user.attributes = session[:user]
+    @user = User.new(session[:user])
     unless @user.valid?
-      session[:user_errors] = @user.errors.messages
+      session[:user_error_messages] = @user.errors.messages
       redirect_to :new_user
     end
 
@@ -43,14 +34,10 @@ class UsersController < ApplicationController
     if params[:no]
       redirect_to :new_user
     else
-      @user = User.new
-      @user.attributes = session[:user]
-
       begin
         User.transaction do
-          @user.save!
+          @user = User.create!(session[:user].delete_blank)
           session[:user] = nil
-          session[:user_errors] = nil
           session[:user_id] = @user.id
         end
       rescue

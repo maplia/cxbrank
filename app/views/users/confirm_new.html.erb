@@ -15,10 +15,10 @@
           <th>パスワード</th><td><%= @user.password.gsub!(/./, '*') %></td>
         </tr>
         <tr>
-          <th>C×B ID</th><td><%= @user.cxbid.empty? ? '（登録なし）' : @user.cxbid %></td>
+          <th>C×B ID</th><td><%= @user.cxbid.blank? ? '（登録なし）' : @user.cxbid %></td>
         </tr>
         <tr>
-          <th>コメント</th><td><%= @user.comment.empty? ? '（登録なし）' : simple_format(raw(@user.comment)) %></td>
+          <th>コメント</th><td><%= @user.comment.blank? ? '（登録なし）' : simple_format(h(@user.comment)) %></td>
         </tr>
       </tbody>
     </table>

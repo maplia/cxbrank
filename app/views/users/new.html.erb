@@ -7,7 +7,7 @@
   <h2>入力フォーム</h2>
   <div class="subunit">
     <p><em>*印</em>がついている項目は入力必須項目です。ここで入力した項目はユーザー登録後も変更可能です</p>
-    <%= form_for(@user, url: confirm_users_path) do |f| %>
+    <%= form_for(@user, url: :confirm_new_users) do |f| %>
       <dl>
         <dt><%= f.label :username, 'ユーザー名' %> <em>*</em></dt>
         <dd>

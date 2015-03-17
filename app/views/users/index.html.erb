@@ -6,16 +6,20 @@
 <div class="unit">
   <h2></h2>
   <div class="subunit">
-    <table class="user_list">
-      <thead>
-        <th>ユーザーID</th><th class="name">ユーザ名</th>
-        <th>C×B ID</th><th class="rp">RP</th><th class="comment">コメント</th><th>最終更新時刻</th>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <%= render 'user', user: user %>
-        <% end %>
-      </tbody>
-    </table>
+    <% if @users.empty? %>
+      <p>ユーザーは登録されていません</p>
+    <% else %>
+      <table class="user_list">
+        <thead>
+          <th>ユーザーID</th><th class="name">ユーザ名</th>
+          <th>C×B ID</th><th class="rp">RP</th><th class="comment">コメント</th><th>最終更新時刻</th>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <%= render 'user', user: user %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
