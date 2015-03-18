@@ -2,6 +2,7 @@ class Skill < ActiveRecord::Base
   belongs_to :user
   belongs_to :music
   has_many :skill_scores
+  attr_accessor :difficulty1, :difficulty2, :difficulty3
 
   def self.select_by_user(user, registered_only=false, ignore_locked=false, time=nil)
     bonus_music_ids = BonusMusic.past(time).pluck(:music_id)
@@ -28,8 +29,12 @@ class Skill < ActiveRecord::Base
   end
 
   def self.select_by_user_and_music(user, music)
-    skill = includes(:music).where('user_id = ? and music_id = ?', user.id, music.id).first
+    skill = includes(:music).includes(:skill_scores).where('user_id = ? and music_id = ?', user.id, music.id).first
     skill = default(user, music, true) unless skill
+    skill.skill_scores.each do |score|
+      difficulty_accessor_sym = "difficulty#{score.difficulty}=".to_sym
+      skill.send(difficulty_accessor_sym, score)
+    end
 
     return skill
   end

@@ -20,65 +20,48 @@
   <div class="subunit">
     <p><em>「未取得/ロック譜面」をチェックすると計算対象外になります</em></p>
     <p><em>RP省略時はクリアレートより自動計算します</em></p>
-    <%= form_tag(confirm_skill_path) do %>
+    <%= form_for(@skill, url: :confirm_skill) do |f| %>
       <table class="skill_form">
         <tbody>
           <% DIFFICULTIES.each do |difficulty, data| %>
             <% next unless @skill.music.difficulty_exist?(difficulty) %>
-          
-            <tr class="<%= data[:css_class] %>">
-              <th class="difficulty" rowspan="2">
-                <%= image_tag data[:img_src], alt: data[:abbr], height: 12 %>
-              </th>
-              <td>
-                <label>
-                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:cleared][:value], @skill.status(difficulty) == PLAY_STATUSES[:cleared][:value] %><%= PLAY_STATUSES[:cleared][:text] %>:
-                </label>
-                <label>
-                  RP:
-                  <%= text_field_tag "[#{difficulty}]rp", @skill.rp(difficulty), size: 6, maxlength: 6, value: number_with_precision(@skill.rp(difficulty), precision: 2) %>
-                </label>
-                <label>
-                  CLEAR RATE:
-                  <%= text_field_tag "[#{difficulty}]rate", @skill.rate(difficulty), {size: 3, maxlength: 3} %>%
-                </label>
-                <label>
-                  ランク:
-                  <%= select_tag "[#{difficulty}]grade", options_for_select(GRADE_STATUSES, @skill.grade(difficulty)) %>
-                </label>
-                <label>
-                  コンボ:
-                  <%= select_tag "[#{difficulty}]combo", options_for_select(COMBO_STATUSES, @skill.combo(difficulty)) %>
-                </label>
-                <label>
-                  <%= check_box_tag "[#{difficulty}]ultimate", true, checked = @skill.ultimate(difficulty) %>ULTIMATE
-                </label>
-              </td>
-            </tr>
-            <tr class="<%= data[:css_class] %>">
-              <td>
-                <label>
-                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:failed][:value], @skill.status(difficulty) == PLAY_STATUSES[:failed][:value] %><%= PLAY_STATUSES[:failed][:text] %>
-                </label>
-                /
-                <label>
-                  <%= radio_button_tag "[#{difficulty}]status", PLAY_STATUSES[:noplay][:value], @skill.status(difficulty) == PLAY_STATUSES[:noplay][:value] %><%= PLAY_STATUSES[:noplay][:text] %>
-                </label>
-                <label>
-                  <%= check_box_tag "[#{difficulty}]locked", true, checked = @skill.locked(difficulty) %>未取得/ロック譜面
-                </label>
-              </td>
-            </tr>
+
+            <%= fields_for(difficulty) do |df| %>
+              <tr class="<%= data[:css_class] %>">
+                <th class="difficulty" rowspan="2">
+                  <%= image_tag data[:img_src], alt: data[:abbr], height: 12 %>
+                </th>
+                <td>
+                  <%= df.radio_button :status, PLAY_STATUSES[:cleared][:value], checked: @skill.status(difficulty) == PLAY_STATUSES[:cleared][:value] %><%= df.label :status, PLAY_STATUSES[:cleared][:text] %>:
+                  <%= df.label :rp, 'RP' %>:
+                  <%= df.text_field :rp, size: 6, maxlength: 6, value: number_with_precision(@skill.rp(difficulty), precision: 2) %>
+                  <%= df.label :rate, 'CLEAR RATE' %>:
+                  <%= df.text_field :rate, size: 3, maxlength: 3, value: @skill.rate(difficulty) %>%
+                  <%= df.label :grade, 'ランク' %>:
+                  <%= df.select :grade, options_for_select(GRADE_STATUSES, @skill.grade(difficulty)) %>
+                  <%= df.label :combo, 'コンボ' %>:
+                  <%= df.select :combo, options_for_select(COMBO_STATUSES, @skill.combo(difficulty)) %>
+                  <%= df.check_box :ultimate, checked: @skill.ultimate(difficulty) %><%= df.label :ultimate, 'ULTIMATE' %>
+                </td>
+              </tr>
+              <tr class="<%= data[:css_class] %>">
+                <td>
+                  <%= df.radio_button :status, PLAY_STATUSES[:failed][:value], checked: @skill.status(difficulty) == PLAY_STATUSES[:failed][:value] %><%= df.label :status, PLAY_STATUSES[:failed][:text] %> /
+                  <%= df.radio_button :status, PLAY_STATUSES[:noplay][:value], checked: @skill.status(difficulty) == PLAY_STATUSES[:noplay][:value] %><%= df.label :status, PLAY_STATUSES[:noplay][:text] %>
+                  <%= df.check_box :locked, checked: @skill.locked(difficulty) %><%= df.label :locked, '未取得/ロック譜面' %>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
           <tr>
-            <th>コメント</th>
-            <td><%= text_field_tag 'skill[comment]', @skill.comment, size: 100 %></td>
+            <th><%= f.label :comment, 'コメント' %></th>
+            <td><%= f.text_field :comment, size: 100 %></td>
           </tr>
         </tbody>
       </table>
       <p>
-        <%= submit_tag @skill.new_record? ? t('helpers.submit.create') : t('helpers.submit.update') %><%= submit_tag '削除', name: 'delete', disabled: @skill.new_record? %><input type="reset" value="入力リセット" />
-        <%= hidden_field_tag 'new_record', @skill.new_record? %>
+        <%= f.submit %><%= f.submit '削除', name: 'delete', disabled: @skill.new_record? %><input type="reset" value="入力リセット" />
+        <%= f.hidden_field :new_record? %>
       </p>
     <% end %>
   </div>
