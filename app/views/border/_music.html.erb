@@ -10,7 +10,7 @@
   <% if data[:id] != 1 %>
           <tr>
   <% end %>
-    <td class="<%= data[:css_class] %>">
+    <td class="<%= data[:css_class]%> difficult">
       <%= data[:abbr] %>
     </td>
     <td class="<%= data[:css_class] %> number">
@@ -21,12 +21,12 @@
     </td>
     <% BORDER_GRADES.each do |grade, gradeData| %>
       <td class="<%= data[:css_class] %> number">
-        <%= sprintf_for_notes((music.notes(difficulty) * (100 - gradeData[:lower]) / 100).floor) %>
+        <%= sprintf_for_notes(border_grade(music.notes(difficulty), gradeData[:lower])) %>
       </td>
     <% end %>
     <% BORDER_CLEARRATES.each do |rate, rateData| %>
       <td class="<%= data[:css_class] %> number">
-        <%= sprintf_for_notes((music.notes(difficulty) * (100 - rate) / 100 / 0.4).floor) %>
+        <%= sprintf_for_notes(border_clear_rate(music.notes(difficulty), rate)) %>
       </td>
     <% end %>
 </tr>
