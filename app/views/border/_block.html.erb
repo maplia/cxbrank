@@ -4,8 +4,8 @@
       <thead>
         <tr>
           <th class="number" rowspan="2">#</th>
-          <th rowspan="2">タイトル</th>
-          <th rowspan="2">難易度</th>
+          <th class="text" rowspan="2">タイトル</th>
+          <th class="difficult" rowspan="2">難易度</th>
           <th class="level" rowspan="2">Lv</th>
           <th class="notes" rowspan="2">Notes</th>
           <th class="grade" colspan="<%= BORDER_GRADES.length %>">Grade</th>
@@ -13,10 +13,10 @@
         </tr>
         <tr>
         <% BORDER_GRADES.each do |grade, data| %>
-          <th class="number"><%= data[:text] %></th>
+          <th class="grade number"><%= data[:text] %></th>
         <% end %>
         <% BORDER_CLEARRATES.each do |rate, data| %>
-          <th class="number"><%= rate %>%</th>
+          <th class="clearrate number"><%= rate %>%</th>
         <% end %>
         </tr>
       </thead>

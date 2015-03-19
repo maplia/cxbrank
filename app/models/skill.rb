@@ -74,7 +74,7 @@ class Skill < ActiveRecord::Base
         if score.ultimate
           temp_rp *= 1.2
         end
-        score.rp = BigDecimal.new((temp_rp * 100).to_s).truncate.to_f / 100.0
+        score.rp = BigDecimal.new(temp_rp.to_s).truncate(2)
       end
 
       if ignore_locked or !score.locked
@@ -116,7 +116,7 @@ class Skill < ActiveRecord::Base
 
   def ultimate_rate(difficulty)
     if ultimate(difficulty)
-      rate = (rp(difficulty) / (music.level(difficulty) * 1.2)) * 100
+      rate = ((rp(difficulty) / (music.level(difficulty) * 1.2)) * 100).ceil
       return rate.to_i
     else
       return nil
