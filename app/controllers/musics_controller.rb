@@ -1,23 +1,9 @@
 class MusicsController < ApplicationController
-  skip_before_filter :check_logined
+  skip_before_action :check_logined
 
   def index
-    @page_title = '登録曲リスト'
-    @blocks = {
-      :bonus => {
-        id: LIST_BLOCKS[:bonus][:id], title: LIST_BLOCKS[:bonus][:title], musics: []
-      },
-      :regular => {
-        id: LIST_BLOCKS[:regular][:title], title: LIST_BLOCKS[:regular][:title], musics: []
-      },
-    }
+    @music_set = MusicSet.all
 
-    Music.all_with_bonus_flag.each do |music|
-      if music.bonus
-        @blocks[:bonus][:musics] << music
-      else
-        @blocks[:regular][:musics] << music
-      end
-    end
+    @page_title = '登録曲リスト'
   end
 end

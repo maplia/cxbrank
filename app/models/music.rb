@@ -9,8 +9,10 @@ class Music < ActiveRecord::Base
     musics.each do |music|
       music.bonus = bonus_music_ids.include?(music.id)
     end
+  end
 
-    return musics
+  def bonus?
+    bonus
   end
 
   def difficulty_exist?(difficulty)

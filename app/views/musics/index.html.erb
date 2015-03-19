@@ -4,6 +4,6 @@
 <h1><%= h1_title(@page_title) %></h1>
 <p>間違いがあれば、ご指摘ください。確認の上、修正を行います。</p>
 
-<% @blocks.each_value do |block| %>
+<% @music_set.each do |block| %>
   <%= render 'block', block: block %>
 <% end %>
