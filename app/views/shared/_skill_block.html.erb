@@ -1,10 +1,10 @@
 <div class="unit">
-  <h2><%= data[:title] %></h2>
+  <h2><%= block[:title] %></h2>
   <div class="subunit">
-    <% if data[:skills].empty? %>
+    <% if block[:items].empty? %>
       <p>ランクポイント情報が登録されていません</p>
     <% else %>
-      <table id="<%= data[:id] %>" class="skill_list">
+      <table id="<%= block[:id] %>" class="skill_list">
         <thead>
           <tr>
             <th class="rank">#</th><th class="title">タイトル</th>
@@ -15,9 +15,8 @@
           </tr>
         </thead>
         <tbody>
-          <% data[:skills].each_with_index do |skill, i| %>
-            <% target = true if !skill.new_record? and data[:target_count] < i %>
-            <%= render 'shared/skill', skill: skill, rank: i+1, edit: edit, target: target %>
+          <% block[:items].each_with_index do |item, i| %>
+            <%= render 'shared/skill', skill: item, rank: i+1, edit: edit %>
           <% end %>
         </tbody>
       </table>

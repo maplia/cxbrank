@@ -4,20 +4,18 @@
     <table class="skill_sum">
       <thead>
         <tr>
-          <% data.each_value do |block_data| %>
-            <th><%= block_data[:title] %></th>
+          <% skill_set.each do |block| %>
+            <th><%= block[:title] %></th>
           <% end %>
           <th>合計RP</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <% total_rp = 0.00 %>
-          <% data.each_value do |block_data| %>
-            <td><%= sprintf_for_rp(block_data[:sum_rp]) %></td>
-            <% total_rp += block_data[:sum_rp] %>
+          <% LIST_BLOCKS.each_key do |block_key| %>
+            <td><%= sprintf_for_rp(skill_set.block_rps[block_key]) %></td>
           <% end %>
-          <td><%= sprintf_for_rp(total_rp) %></td>
+          <td><%= sprintf_for_rp(skill_set.total_rp) %></td>
         </tr>
       </tbody>
     </table>

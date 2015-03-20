@@ -2,10 +2,11 @@ class Skill < ActiveRecord::Base
   belongs_to :user
   belongs_to :music
   has_many :skill_scores
+  attr_accessor :target
   attr_accessor :difficulty1, :difficulty2, :difficulty3
 
-  def self.select_by_user(user, registered_only=false, ignore_locked=false, time=nil)
-    bonus_music_ids = BonusMusic.past(time).pluck(:music_id)
+  def self.select_by_user(user, options={})
+    bonus_music_ids = BonusMusic.past(options[:time]).pluck(:music_id)
     skills = includes(:music).includes(:skill_scores).where('user_id = ?', user.id).to_a
 
     skills.each do |skill|
@@ -13,10 +14,10 @@ class Skill < ActiveRecord::Base
       skill.skill_scores.each do |score|
         score.music_score = skill.music.score("difficulty#{score.difficulty}".to_sym)
       end
-      skill.calc!(ignore_locked) if ignore_locked
+      skill.calc!(options[:ignore_locked]) if options[:ignore_locked]
     end
-    unless registered_only
-      musics = Music.all_with_bonus_flag(time)
+    unless options[:registered_only]
+      musics = Music.all_with_bonus_flag(options[:time])
       skill_hash = skills.index_by(&:music_id)
 
       musics.each do |music|
@@ -62,6 +63,10 @@ class Skill < ActiveRecord::Base
     end
 
     return skill
+  end
+
+  def bonus?
+    music.bonus?
   end
 
   def calc!(ignore_locked=false)

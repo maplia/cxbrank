@@ -2,10 +2,10 @@ class SkillsController < ApplicationController
   include SkillData
 
   def index
-    @user = User.where('id = ?', session[:user_id]).first
+    @user = User.find(session[:user_id].to_i)
+    @skill_set = SkillSet.all_by_user(@user)
 
     @page_title = "#{@user.username}さんのランクポイント表"
-    @data = get_skill_data(@user)
   end
 
   def edit

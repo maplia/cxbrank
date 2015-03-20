@@ -3,7 +3,7 @@
 <% title_text << " <small>#{skill.music.subtitle}</small>" if skill.music.subtitle %>
 
 <tr class="<%= DIFFICULTIES[difficulty][:css_class] if DIFFICULTIES.has_key?(difficulty) %>">
-  <th class="<%= target ? 'target' : 'untarget' %>"><%= rank %></th>
+  <th class="<%= skill.target ? 'target' : 'untarget' %>"><%= rank %></th>
   <td class="title text">
     <%= link_to_if edit, raw(title_text), edit_skill_path(skill.music.text_id) %>
     <% if difficulty %>
