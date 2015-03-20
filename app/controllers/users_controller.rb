@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new(session[:user])
-    @user.add_errors(session[:user_error_messages])
+    @user.add_error_messages(session[:user_error_messages])
     session[:user_error_messages] = nil
 
     @page_title = 'ユーザー登録'

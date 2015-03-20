@@ -27,6 +27,7 @@ class SkillsController < ApplicationController
     music = Music.where('id = ?', session[:music_id]).first
 
     session[:skill] = params.require(:skill).permit([:comment])
+    session[:new_record] = params.require(:skill).permit([:new_record])
     DIFFICULTIES.each_key do |difficulty|
       next unless music.difficulty_exist?(difficulty)
       session[difficulty] = params.require(difficulty).permit([
@@ -46,7 +47,7 @@ class SkillsController < ApplicationController
     if params[:delete]
       session[:operation] = :destroy
     else
-      if params[:new_record] == true.to_s
+      if session[:new_record]
         session[:operation] = :create
       else
         session[:operation] = :update

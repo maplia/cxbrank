@@ -10,6 +10,9 @@ class Skill < ActiveRecord::Base
 
     skills.each do |skill|
       skill.music.bonus = bonus_music_ids.include?(skill.music.id)
+      skill.skill_scores.each do |score|
+        score.music_score = skill.music.score("difficulty#{score.difficulty}".to_sym)
+      end
       skill.calc!(ignore_locked) if ignore_locked
     end
     unless registered_only
@@ -51,7 +54,9 @@ class Skill < ActiveRecord::Base
       skill.skill_scores = []
       DIFFICULTIES.each_key do |difficulty|
         if skill.music.level(difficulty)
-          skill.skill_scores << SkillScore.default(difficulty, music.score(difficulty))
+          score = SkillScore.default(music.score(difficulty))
+          skill.skill_scores << score
+          skill.send("#{difficulty}=", score)
         end
       end
     end
@@ -69,13 +74,7 @@ class Skill < ActiveRecord::Base
       score = skill_scores.index_by(&:difficulty)[DIFFICULTIES[difficulty][:id]]
       next if score.status != PLAY_STATUSES[:cleared][:value]
 
-      unless score.rp
-        temp_rp = self.music.level(difficulty) * (score.rate || 0) / 100.0
-        if score.ultimate
-          temp_rp *= 1.2
-        end
-        score.rp = BigDecimal.new(temp_rp.to_s).truncate(2)
-      end
+      score.calc!
 
       if ignore_locked or !score.locked
         if best_rp < score.rp
@@ -115,12 +114,7 @@ class Skill < ActiveRecord::Base
   end
 
   def ultimate_rate(difficulty)
-    if ultimate(difficulty)
-      rate = ((rp(difficulty) / (music.level(difficulty) * 1.2)) * 100).ceil
-      return rate.to_i
-    else
-      return nil
-    end
+    return send_to_score(difficulty, :ultimate_rate)
   end
 
   def <=>(other)
