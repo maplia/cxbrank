@@ -1,5 +1,6 @@
 class SkillScore < ActiveRecord::Base
   belongs_to :skill
+  has_one :music_score
   attr_accessor :music_score
 
   def self.default(music_score)
@@ -22,6 +23,10 @@ class SkillScore < ActiveRecord::Base
       temp_rp *= 1.2 if ultimate?
       self.rp = BigDecimal.new(temp_rp.to_s).truncate(2)
     end
+  end
+  
+  def cleared?
+    status == PLAY_STATUSES[:cleared][:value]
   end
 
   def ultimate_rate

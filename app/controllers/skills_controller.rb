@@ -1,6 +1,4 @@
 class SkillsController < ApplicationController
-  include SkillData
-
   def index
     @user = User.find(session[:user_id].to_i)
     @skill_set = SkillSet.all_by_user(@user)

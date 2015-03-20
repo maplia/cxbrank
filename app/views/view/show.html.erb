@@ -1,12 +1,8 @@
-<% breadcrumb :skills %>
+<% breadcrumb :view %>
 <%= breadcrumbs %>
 
 <h1><%= raw h1_title(@page_title) %></h1>
 
 <%= render 'shared/user', user: @user, edit: false %>
 
-<%= render 'shared/skill_sum', data: @data %>
-
-<% @data.each_value do |block_data| %>
-  <%= render 'shared/skill_block', data: block_data, edit: false %>
-<% end %>
+<%= render 'shared/skill_set', skill_set: @skill_set, edit: false %>

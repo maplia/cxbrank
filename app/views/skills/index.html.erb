@@ -5,8 +5,4 @@
 
 <%= render 'shared/user', user: @user, edit: true %>
 
-<%= render 'shared/skill_sum', skill_set: @skill_set %>
-
-<% @skill_set.each do |block| %>
-  <%= render 'shared/skill_block', block: block, edit: true %>
-<% end %>
+<%= render 'shared/skill_set', skill_set: @skill_set, edit: true %>

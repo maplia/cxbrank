@@ -3,7 +3,6 @@ class Skill < ActiveRecord::Base
   belongs_to :music
   has_many :skill_scores
   attr_accessor :target
-  attr_accessor :difficulty1, :difficulty2, :difficulty3
 
   def self.select_by_user(user, options={})
     bonus_music_ids = BonusMusic.past(options[:time]).pluck(:music_id)
@@ -22,7 +21,7 @@ class Skill < ActiveRecord::Base
 
       musics.each do |music|
         unless skill_hash.has_key?(music.id)
-          skills << default(user, music, true)
+          skills << default(user, music)
           skill_hash[music.id] = skills.last
         end
       end
@@ -33,36 +32,28 @@ class Skill < ActiveRecord::Base
   end
 
   def self.select_by_user_and_music(user, music)
-    skill = includes(:music).includes(:skill_scores).where('user_id = ? and music_id = ?', user.id, music.id).first
-    skill = default(user, music, true) unless skill
-    skill.skill_scores.each do |score|
-      difficulty_accessor_sym = "difficulty#{score.difficulty}=".to_sym
-      skill.send(difficulty_accessor_sym, score)
+    if exists?(user_id: user.id, music_id: music.id)
+      skill = find_by(user_id: user.id, music_id: music.id)
+      skill.skill_scores.each do |score|
+        score.music_score = music.score("difficulty#{score.difficulty}".to_sym)
+      end
+    else
+      skill = default(user, music)
     end
-
-    return skill
+    skill
   end
 
-  def self.default(user, music, detail=false)
-    hash = {
-      user_id: user.id, music_id: music.id,
-      best_difficulty: nil, best_rp: 0.00,
-    }
-
-    skill = self.new(hash)
-    skill.music = music
-    if detail
-      skill.skill_scores = []
-      DIFFICULTIES.each_key do |difficulty|
-        if skill.music.level(difficulty)
-          score = SkillScore.default(music.score(difficulty))
-          skill.skill_scores << score
-          skill.send("#{difficulty}=", score)
-        end
-      end
+  def self.default(user, music)
+    skill_scores = []
+    DIFFICULTIES.each_key do |difficulty|
+      next unless music.difficulty_exist?(difficulty)
+      skill_scores << SkillScore.default(music.score(difficulty))
     end
 
-    return skill
+    self.new({
+      music: music,
+      best_difficulty: nil, best_rp: 0.00, skill_scores: skill_scores,
+    })
   end
 
   def bonus?
@@ -75,16 +66,13 @@ class Skill < ActiveRecord::Base
     
     DIFFICULTIES.each_key do |difficulty|
       next unless music.difficulty_exist?(difficulty)
+      next unless cleared?(difficulty)
 
-      score = skill_scores.index_by(&:difficulty)[DIFFICULTIES[difficulty][:id]]
-      next if score.status != PLAY_STATUSES[:cleared][:value]
-
-      score.calc!
-
-      if ignore_locked or !score.locked
-        if best_rp < score.rp
+      send_to_score(difficulty, :calc!)
+      if ignore_locked or !locked(difficulty)
+        if best_rp < rp(difficulty)
           self.best_difficulty = DIFFICULTIES[difficulty][:id]
-          self.best_rp = score.rp
+          self.best_rp = rp(difficulty)
         end
       end
     end
@@ -92,6 +80,10 @@ class Skill < ActiveRecord::Base
 
   def status(difficulty)
     return send_to_score(difficulty, :status)
+  end
+
+  def cleared?(difficulty)
+    return send_to_score(difficulty, :cleared?)
   end
 
   def locked(difficulty)
@@ -131,12 +123,8 @@ class Skill < ActiveRecord::Base
   end
 
   private
-  def send_to_score(difficulty, symbol)
+  def send_to_score(difficulty, method)
     @score_hash = skill_scores.index_by(&:difficulty) unless @score_hash
-    if @score_hash.has_key?(DIFFICULTIES[difficulty][:id])
-      return @score_hash[DIFFICULTIES[difficulty][:id]].send(symbol)
-    else
-      return nil
-    end
+    @score_hash[DIFFICULTIES[difficulty][:id]].try(:send, method)
   end
 end

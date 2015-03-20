@@ -1,62 +1,34 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.0'
+# Ruby on Rails
+gem 'rails', '4.2.0'
 
-# Use sqlite3 as the database for Active Record
+# Database for Active Record
 gem 'sqlite3', group: [:development, :test]
-# Use mysql2 as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', group: [:production, :staging]
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.2'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
+# Asset pipeline
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jbuilder'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+# Document generate
+gem 'sdoc', require: false, group: [:doc]
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Timezone info on Windows
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
-# Use Seed-fu for master maintenance
+# Master maintenance
 gem 'seed-fu'
 
-# Use breadcrumb navigation
+# Breadcrumb navigation
 gem 'gretel'
 
-# Use auto link
+# Auto link
 gem 'rails_autolink'
 
-# Use purse user-agent
+# User-agent parse
 gem "rack-user_agent"
