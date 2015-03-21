@@ -1,16 +1,20 @@
 class BorderController < ApplicationController
-  skip_before_filter :check_logined
+  skip_before_action :check_logined
 
   def index
     @page_title = 'ボーダー表'
-    @blocks = {
-        :regular => {
-            id: LIST_BLOCKS[:regular][:title], title: LIST_BLOCKS[:regular][:title], musics: []
-        },
-    }
+    @music_set = Music.all_with_bonus_flag.each
+  end
 
-    Music.all_with_bonus_flag.each do |music|
-      @blocks[:regular][:musics] << music
+  def show
+    number = params[:id].to_i
+    musics = Music.where('number = ?', number)
+
+    if musics.count == 0
+      redirect_to :action => 'index'
     end
+
+    @music_set = musics
+    @page_title = 'ボーダー表 (' + musics.first.title + ')'
   end
 end
