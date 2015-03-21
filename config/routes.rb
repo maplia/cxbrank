@@ -15,7 +15,7 @@ Cxbrank::Application.routes.draw do
   end
 
   resources :musics, only: ['index']
-  resources :border, only: ['index']
+  resources :border, only: ['index', 'show']
 
   resources :skills, only: ['index', 'edit', 'update', 'destroy'] do
     member do

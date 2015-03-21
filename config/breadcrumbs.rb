@@ -32,6 +32,11 @@ crumb :border do
   parent :root
 end
 
+crumb :show_border do
+  link '曲別', border_path
+  parent :border
+end
+
 crumb :skills do
   link 'ランクポイント表', skills_path
   parent :root
