@@ -1,4 +1,4 @@
-<% breadcrumb :new_user %>
+<% breadcrumb :edit_user %>
 <%= breadcrumbs %>
 
 <h1><%= raw h1_title(@page_title) %></h1>
@@ -6,9 +6,11 @@
 <div class="unit">
   <h2>入力フォーム</h2>
   <div class="subunit">
-    <p><em>*印</em>がついている項目は入力必須項目です。ここで入力した項目はユーザー登録後も変更可能です</p>
-    <%= form_for(@user, url: :confirm_new_users) do |f| %>
+    <p><em>*印</em>がついている項目は入力必須項目です</p>
+    <%= form_for(@user, url: :confirm_edit_user) do |f| %>
       <dl>
+        <dt>ユーザーID</dt>
+        <dd><%= sprintf_for_user_id(@user.id) %></dd>
         <dt><%= f.label :username, 'ユーザー名' %> <em>*</em></dt>
         <dd>
           <%= f.text_field :username, size: 30, maxlength: 30 %>
@@ -30,11 +32,11 @@
             <em><%= @user.errors.messages[:password_confirmation].join('/') %></em>
           <% end %>
         </dd>
-        <dt><%= f.label :cxb_id, 'CROSS×BEATS ID' %></dt>
+        <dt><%= f.label :cxbid, 'CROSS×BEATS ID' %></dt>
         <dd>
-          <%= f.text_field :cxb_id, size: 8, maxlength: 8 %>
-          <% unless @user.errors.messages[:cxb_id].empty? %>
-            <em><%= @user.errors.messages[:cxb_id].join('/') %></em>
+          <%= f.text_field :cxbid, size: 8, maxlength: 8 %>
+          <% unless @user.errors.messages[:cxbid].empty? %>
+            <em><%= @user.errors.messages[:cxbid].join('/') %></em>
           <% end %>
         </dd>
         <dt><%= f.label :comment, 'ユーザーコメント' %>（HTMLタグによる文字装飾はできません。URLには自動的にリンクが設定されます）</dt>
@@ -47,4 +49,3 @@
     <% end %>
   </div>
 </div>
-  

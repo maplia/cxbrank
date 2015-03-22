@@ -1,80 +1,71 @@
 crumb :root do
-  link APP_INFO[:name], root_path
+  link APP_INFO[:name], root_url
 end
 
 crumb :users do
-  link '登録ユーザーリスト', users_path
+  link '登録ユーザーリスト', users_url
   parent :root
 end
 
 crumb :new_user do
-  link 'ユーザー登録', new_user_path
+  link 'ユーザー登録', new_user_url
   parent :root
 end
 
-crumb :confirm_user do
-  link 'ユーザー登録確認', confirm_user_path
+crumb :confirm_new_user do
+  link 'ユーザー登録確認', confirm_new_users_url
   parent :root
 end
 
 crumb :create_user do
-  link 'ユーザー登録完了', user_path
+  link 'ユーザー登録完了', user_url
   parent :root
 end
 
 crumb :musics do
-  link '登録曲リスト', musics_path
+  link '登録曲リスト', musics_url
   parent :root
 end
 
 crumb :border do
-  link 'ボーダー表', border_index_path
+  link 'ボーダー表', border_index_url
   parent :root
 end
 
 crumb :skills do
-  link 'ランクポイント表', skills_path
+  link 'ランクポイント表', skills_url
   parent :root
 end
 
 crumb :edit_skill do
-  link 'ランクポイント編集', edit_skill_path
+  link 'ランクポイント編集', edit_skill_url
   parent :skills
 end
 
 crumb :confirm_skill do
-  link 'ランクポイント編集確認', confirm_skill_path
+  link 'ランクポイント編集確認', confirm_skill_url
+  parent :skills
+end
+
+crumb :edit_user do
+  link 'ユーザー登録', edit_user_url
+  parent :skills
+end
+
+crumb :confirm_edit_user do
+  link 'ユーザー登録確認', confirm_edit_user_url
   parent :skills
 end
 
 crumb :view do
-  link 'ランクポイント表', view_path
+  link 'ランクポイント表', view_url
   parent :root
 end
 
 crumb :iglock do
-  link 'ランクポイント表 [ロック状態無視]', iglock_path
+  link 'ランクポイント表 [ロック状態無視]', iglock_url
   parent :root
 end
-
-# crumb :projects do
-#   link "Projects", projects_path
-# end
-
-# crumb :project do |project|
-#   link project.name, project_path(project)
-#   parent :projects
-# end
-
-# crumb :project_issues do |project|
-#   link "Issues", project_issues_path(project)
-#   parent :project, project
-# end
-
-# crumb :issue do |issue|
-#   link issue.title, issue_path(issue)
-#   parent :project_issues, issue.project
-# end
 
 # If you want to split your breadcrumbs configuration over multiple files, you
 # can create a folder named `config/breadcrumbs` and put your configuration

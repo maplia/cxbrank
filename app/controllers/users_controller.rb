@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :check_logined
+  skip_before_action :check_logined, only: [:index, :new, :confirm_new, :create]
   include ParamUtil
 
   def index
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def confirm_new
     session[:user] = params.require(:user).permit([
-      :username, :password, :password_confirmation, :cxbid, :comment,
+      :username, :password, :password_confirmation, :cxb_id, :comment,
     ])
 
     @user = User.new(session[:user])
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         User.transaction do
           @user = User.create!(session[:user].delete_blank)
           session[:user] = nil
-          session[:user_id] = @user.id
+          session[:user_id] = @user.id.to_i
         end
       rescue
         redirect_to :new_user
@@ -46,5 +46,27 @@ class UsersController < ApplicationController
 
       @page_title = 'ユーザー登録完了'
     end
+  end
+
+  def edit
+    @user = User.current(session)
+    @user.add_error_messages(session[:user_error_messages])
+    session[:user_error_messages] = nil
+
+    @page_title = 'ユーザー情報編集'
+  end
+
+  def confirm_edit
+    session[:user] = params.require(:user).permit([
+      :username, :password, :password_confirmation, :cxb_id, :comment,
+    ])
+
+    @user = User.new(session[:user].delete_blank)
+    unless @user.valid?
+      session[:user_error_messages] = @user.errors.messages
+      redirect_to :edit_user
+    end
+
+    @page_title = 'ユーザー情報編集確認'
   end
 end

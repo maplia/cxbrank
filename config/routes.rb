@@ -10,7 +10,7 @@ Cxbrank::Application.routes.draw do
   end
   resource :user, only: ['edit', 'update'] do
     member do
-      patch 'confirm'
+      patch 'confirm_edit'
     end
   end
 

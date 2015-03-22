@@ -7,7 +7,7 @@ class LoginController < ApplicationController
   def auth
     user = User.authenticate(params[:userid], params[:password])
     if user
-      session[:user_id] = user.id
+      session[:user_id] = user.id.to_i
       redirect_to '/skills'
     else
       redirect_to '/login'

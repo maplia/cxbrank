@@ -17,7 +17,7 @@ class SkillSet
     SUM_TARGET_SIZES.each do |key, size|
       @block_rps[key] = 0.00
       @blocks[key][:items].each_with_index do |item, i|
-        break if size != -1 and i > size or item.best_rp == 0.00
+        break if (size != -1 and i > size) or item.best_rp == 0.00
         @block_rps[key] += item.best_rp
         item.target = true
       end

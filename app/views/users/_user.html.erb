@@ -1,7 +1,7 @@
 <tr>
   <th><%= sprintf_for_user_id(user.id) %></th>
   <td><%= link_to raw(user.username), view_path(sprintf_for_user_id(user.id)) %></td>
-  <td><%= user.cxbid %></td>
+  <td><%= user.cxb_id %></td>
   <td class="number"><%= sprintf_for_rp(user.rp) %></td>
   <td><%= truncate raw(user.comment), length: 50 %></td>
   <td><%= user.skill_updated_at %></td>

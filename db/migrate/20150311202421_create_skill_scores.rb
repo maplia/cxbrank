@@ -1,7 +1,7 @@
 class CreateSkillScores < ActiveRecord::Migration
   def change
     create_table :skill_scores do |t|
-      t.integer :skill_id, null: false
+      t.references :skill, null: false
       t.integer :difficulty, null: false
       t.integer :status
       t.boolean :locked
@@ -12,7 +12,9 @@ class CreateSkillScores < ActiveRecord::Migration
       t.boolean :ultimate
       t.integer :score
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
+
+  add_foreign_key :skill_scores, :skills
 end

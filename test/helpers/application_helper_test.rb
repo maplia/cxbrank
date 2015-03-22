@@ -36,6 +36,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "sprintf_for_diff_rp" do
+    assert_equal '-', sprintf_for_diff_rp(nil)
     assert_equal '-', sprintf_for_diff_rp(0)
     assert_equal '-12.00', sprintf_for_diff_rp(-12)
     assert_equal '+23.00', sprintf_for_diff_rp(+23)

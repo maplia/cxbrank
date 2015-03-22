@@ -10,7 +10,7 @@
   </div>
   
   <%
-    case session[:operation]
+    case session[:skill][:operation]
     when :create
       operation_text = '登録'
       method = 'put'

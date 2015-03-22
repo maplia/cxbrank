@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class MusicsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "index action" do
+    get :index
+    assert_response :success
+    assert_template 'musics/index'
+  end
 end

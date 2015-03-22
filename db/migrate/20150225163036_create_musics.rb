@@ -8,7 +8,7 @@ class CreateMusics < ActiveRecord::Migration
       t.string :sortkey, null: false
       t.datetime :added_at, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

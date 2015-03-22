@@ -11,16 +11,16 @@
           <tr>
             <th>RP表公開URL</th>
             <td>
-              <%= link_to view_path(sprintf_for_user_id(user.id), only_path: false), view_path(sprintf_for_user_id(user.id)) %>
+              <%= auto_link view_url(sprintf_for_user_id(user.id), only_path: false) %>
               <br/>
-              <%= link_to iglock_path(sprintf_for_user_id(user.id), only_path: false), iglock_path(sprintf_for_user_id(user.id)) %>（未取得/ロックフラグ無視版）
+              <%= auto_link iglock_url(sprintf_for_user_id(user.id), only_path: false) %>（未取得/ロックフラグ無視版）
             </td>
           </tr>
         <% end %>
-        <% if user.cxbid %>
+        <% if user.cxb_id %>
           <tr>
             <th>C×B ID</th>
-            <td><%= user.cxbid %></td>
+            <td><%= user.cxb_id %></td>
           </tr>
         <% end %>
         <% if user.comment %>
@@ -33,12 +33,12 @@
     </table>
     <% if edit %>
       <p>
-        ユーザー情報編集
+        <%= link_to 'ユーザー情報編集', edit_user_url %>
       </p>
     <% else %>
       <p>
-        <%= link_to_unless_current '通常RP表', view_path(sprintf_for_user_id(user.id)) %>
-        / <%= link_to_unless_current 'ロック状態無視RP表', iglock_path(sprintf_for_user_id(user.id)) %>
+        <%= link_to_unless_current '通常RP表', view_url(sprintf_for_user_id(user.id)) %>
+        / <%= link_to_unless_current 'ロック状態無視RP表', iglock_url(sprintf_for_user_id(user.id)) %>
       </p>
     <% end %>
   </div>

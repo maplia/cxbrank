@@ -3,12 +3,12 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string :username, null: false
       t.string :password, null: false
-      t.string :cxbid
+      t.string :cxb_id
       t.string :comment
       t.float :rp, default: 0.00
       t.datetime :skill_updated_at
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

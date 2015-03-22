@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SkillScoreTest < ActiveSupport::TestCase
   def setup
-    music = Music.where('text_id = ?', 'somedayinst').first
+    music = Music.find_by_text_id('somedayinst')
     @music_score = music.score(:difficulty3)
   end
 

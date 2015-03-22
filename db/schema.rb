@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20150311202421) do
     t.integer  "music_id",     null: false
     t.datetime "period_start", null: false
     t.datetime "period_end",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "music_scores", force: :cascade do |t|
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20150311202421) do
     t.integer  "difficulty", null: false
     t.float    "level",      null: false
     t.integer  "notes",      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "musics", force: :cascade do |t|
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20150311202421) do
     t.string   "subtitle"
     t.string   "sortkey",    null: false
     t.datetime "added_at",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skill_scores", force: :cascade do |t|
@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20150311202421) do
     t.integer  "combo"
     t.boolean  "ultimate"
     t.integer  "score"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skills", force: :cascade do |t|
@@ -62,19 +62,19 @@ ActiveRecord::Schema.define(version: 20150311202421) do
     t.string   "comment"
     t.integer  "best_difficulty", default: 0
     t.float    "best_rp",         default: 0.0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "username",                       null: false
     t.string   "password",                       null: false
-    t.string   "cxbid"
+    t.string   "cxb_id"
     t.string   "comment"
     t.float    "rp",               default: 0.0
     t.datetime "skill_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
 end

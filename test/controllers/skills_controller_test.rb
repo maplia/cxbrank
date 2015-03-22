@@ -1,9 +1,13 @@
 require 'test_helper'
 
 class SkillsControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
+  def setup
+    @request.session[:user_id] = '00001'.to_i
   end
 
+  test "index action" do
+    get :index
+    assert_response :success
+    assert_template 'skills/index'
+  end
 end

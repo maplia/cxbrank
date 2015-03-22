@@ -2,6 +2,9 @@ class Music < ActiveRecord::Base
   has_many :music_scores
   attr_accessor :bonus
 
+  scope :current, ->(session) {find(session[:skill][:music_id])}
+  scope :find_by_params, ->(params) {find_by(text_id: params[:id])}
+
   def self.all_with_bonus_flag(time=nil)
     bonus_music_ids = BonusMusic.past(time).pluck(:music_id)
     musics = includes(:music_scores).order(:number)
