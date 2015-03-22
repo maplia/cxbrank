@@ -1,33 +1,36 @@
 <tr>
-  <th class="number" rowspan="3"><%= music.number %></th>
-  <td class="title text" rowspan="3">
-    <%= raw music.title %>
-    <% if music.subtitle %>
-      <small><%= raw music.subtitle %></small>
-    <% end %>
+  <th class="number" rowspan="<%= DIFFICULTIES.length %>"><%= music.number %></th>
+  <td class="title text" rowspan="<%= DIFFICULTIES.length %>">
+    <% title_text = music.title %>
+    <% title_text << " <small>#{music.subtitle}</small>" if music.subtitle %>
+    <%= link_to_if index, raw(title_text), border_path(music.number) %>
   </td>
   <% DIFFICULTIES.each do |difficulty, data| %>
   <% if data[:id] != 1 %>
-          <tr>
+    <tr>
   <% end %>
     <td class="<%= data[:css_class]%> difficult">
       <%= data[:abbr] %>
     </td>
-    <td class="<%= data[:css_class] %> number">
-      <%= sprintf_for_level(music.level(difficulty)) %>
-    </td>
-    <td class="<%= data[:css_class] %> number">
-      <%= sprintf_for_notes(music.notes(difficulty)) %>
-    </td>
-    <% BORDER_GRADES.each do |grade, gradeData| %>
+    <% if music.level(difficulty) != nil %>
       <td class="<%= data[:css_class] %> number">
-        <%= sprintf_for_notes(border_grade(music.notes(difficulty), gradeData[:lower])) %>
+        <%= sprintf_for_level(music.level(difficulty)) %>
       </td>
-    <% end %>
-    <% BORDER_CLEARRATES.each do |rate, rateData| %>
       <td class="<%= data[:css_class] %> number">
-        <%= sprintf_for_notes(border_clear_rate(music.notes(difficulty), rate)) %>
+        <%= sprintf_for_notes(music.notes(difficulty)) %>
       </td>
+      <% BORDER_GRADES.each do |grade, gradeData| %>
+        <td class="<%= data[:css_class] %> number">
+          <%= sprintf_for_notes(border_grade(music.notes(difficulty), gradeData[:lower])) %>
+        </td>
+      <% end %>
+      <% BORDER_CLEARRATES.each do |rate, rateData| %>
+        <td class="<%= data[:css_class] %> number">
+          <%= sprintf_for_notes(border_clear_rate(music.notes(difficulty), rate)) %>
+        </td>
+      <% end %>
+    <% else %>
+      <td class="<%= data[:css_class] %> nodata" colspan="<%= 2 + BORDER_GRADES.length + BORDER_CLEARRATES.length %>">NO DATA</td>
     <% end %>
 </tr>
 
