@@ -57,12 +57,14 @@ class UsersController < ApplicationController
   end
 
   def confirm_edit
+    @user = User.current(session)
     session[:user] = params.require(:user).permit([
       :username, :password, :password_confirmation, :cxb_id, :comment,
     ])
+    session[:user][:password] = @user.password if session[:user][:password].blank?
+    session[:user][:password_confirmation] = @user.password if session[:user][:password_confirmation].blank?
 
-    @user = User.current(session)
-    @user.attributes = session[:user].delete_blank
+    @user.update(session[:user].delete_blank)
     unless @user.valid?
       session[:user_error_messages] = @user.errors.messages
       redirect_to :edit_user
@@ -77,6 +79,7 @@ class UsersController < ApplicationController
     else
       user = User.current(session)
       user.update(session[:user].delete_blank)
+
       begin
         User.transaction do
           user.save!

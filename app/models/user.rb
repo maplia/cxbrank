@@ -17,7 +17,9 @@ class User < ActiveRecord::Base
   end
 
   def crypt_password
-    self.password = Digest::SHA1.hexdigest(password) if password
-    self.password_confirmation = Digest::SHA1.hexdigest(password_confirmation) if password_confirmation
+    if new_record? or changed.include?('password')
+      self.password = Digest::SHA1.hexdigest(password)
+      self.password_confirmation = Digest::SHA1.hexdigest(password_confirmation)
+    end
   end
 end
