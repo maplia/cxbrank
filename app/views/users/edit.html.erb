@@ -18,25 +18,25 @@
             <em><%= @user.errors.messages[:username].join('/') %></em>
           <% end %>
         </dd>
-        <dt><%= f.label :password, 'パスワード' %> <em>*</em></dt>
+        <dt><%= f.label :password, 'パスワード' %>（変更しない場合は入力不要です）</dt>
         <dd>
           <%= f.password_field :password, size: 20, maxlength: 50 %>
           <% unless @user.errors.messages[:password].empty? %>
             <em><%= @user.errors.messages[:password].join('/') %></em>
           <% end %>
         </dd>
-        <dt><%= f.label :password_confirmation, 'パスワード（確認用）' %> <em>*</em></dt>
+        <dt><%= f.label :password_confirmation, 'パスワード（確認用）' %>（変更しない場合は入力不要です）</dt>
         <dd>
           <%= f.password_field :password_confirmation, size: 20, maxlength: 50 %>
           <% unless @user.errors.messages[:password_confirmation].empty? %>
             <em><%= @user.errors.messages[:password_confirmation].join('/') %></em>
           <% end %>
         </dd>
-        <dt><%= f.label :cxbid, 'CROSS×BEATS ID' %></dt>
+        <dt><%= f.label :cxb_id, 'CROSS×BEATS ID' %></dt>
         <dd>
-          <%= f.text_field :cxbid, size: 8, maxlength: 8 %>
-          <% unless @user.errors.messages[:cxbid].empty? %>
-            <em><%= @user.errors.messages[:cxbid].join('/') %></em>
+          <%= f.text_field :cxb_id, size: 8, maxlength: 8 %>
+          <% unless @user.errors.messages[:cxb_id].empty? %>
+            <em><%= @user.errors.messages[:cxb_id].join('/') %></em>
           <% end %>
         </dd>
         <dt><%= f.label :comment, 'ユーザーコメント' %>（HTMLタグによる文字装飾はできません。URLには自動的にリンクが設定されます）</dt>

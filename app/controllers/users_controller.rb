@@ -61,12 +61,31 @@ class UsersController < ApplicationController
       :username, :password, :password_confirmation, :cxb_id, :comment,
     ])
 
-    @user = User.new(session[:user].delete_blank)
+    @user = User.current(session)
+    @user.attributes = session[:user].delete_blank
     unless @user.valid?
       session[:user_error_messages] = @user.errors.messages
       redirect_to :edit_user
     end
 
     @page_title = 'ユーザー情報編集確認'
+  end
+
+  def update
+    if params[:no]
+      redirect_to :edit_user
+    else
+      user = User.current(session)
+      user.update(session[:user].delete_blank)
+      begin
+        User.transaction do
+          user.save!
+          session[:user] = nil
+        end
+        redirect_to :skills
+      rescue
+        redirect_to :edit_user
+      end
+    end
   end
 end
