@@ -24,7 +24,7 @@ class Music < ActiveRecord::Base
 
   def score(difficulty)
     @score_hash = music_scores.index_by(&:difficulty) unless @score_hash
-    return @score_hash[DIFFICULTIES[difficulty][:id]]
+    @score_hash[DIFFICULTIES[difficulty][:id]]
   end
 
   def level(difficulty)
@@ -36,12 +36,8 @@ class Music < ActiveRecord::Base
   end
 
   private
-  def send_to_score(difficulty, symbol)
+  def send_to_score(difficulty, method)
     @score_hash = music_scores.index_by(&:difficulty) unless @score_hash
-    if @score_hash.has_key?(DIFFICULTIES[difficulty][:id])
-      return @score_hash[DIFFICULTIES[difficulty][:id]].send(symbol)
-    else
-      return nil
-    end
+    @score_hash[DIFFICULTIES[difficulty][:id]].try(:send, method)
   end
 end

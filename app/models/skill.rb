@@ -13,7 +13,7 @@ class Skill < ActiveRecord::Base
       skill.skill_scores.each do |score|
         score.music_score = skill.music.score("difficulty#{score.difficulty}".to_sym)
       end
-      skill.calc!(options[:ignore_locked]) if options[:ignore_locked]
+      skill.calc!(ignore_locked: true) if options[:ignore_locked]
     end
     unless options[:registered_only]
       musics = Music.all_with_bonus_flag(options[:time])
@@ -60,7 +60,12 @@ class Skill < ActiveRecord::Base
     music.bonus?
   end
 
-  def calc!(ignore_locked=false)
+  def score(difficulty)
+    @score_hash = skill_scores.index_by(&:difficulty) unless @score_hash
+    @score_hash[DIFFICULTIES[difficulty][:id]]
+  end
+
+  def calc!(options={})
     self.best_difficulty = 0
     self.best_rp = 0.00
     
@@ -69,7 +74,7 @@ class Skill < ActiveRecord::Base
       next unless cleared?(difficulty)
 
       send_to_score(difficulty, :calc!)
-      if ignore_locked or !locked(difficulty)
+      if options[:ignore_locked] or !locked(difficulty)
         if best_rp < rp(difficulty)
           self.best_difficulty = DIFFICULTIES[difficulty][:id]
           self.best_rp = rp(difficulty)

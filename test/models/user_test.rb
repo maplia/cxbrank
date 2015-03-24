@@ -1,6 +1,24 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  test "current" do
+    session = {user_id: users(:testuser1).id}
+
+    user = User.current(session)
+    assert_instance_of User, user
+    assert_equal users(:testuser1).id, user.id
+    assert_equal users(:testuser1).username, user.username
+  end
+
+  test "find_by_params" do
+    params = {id: sprintf('%05d', users(:testuser1).id)}
+
+    user = User.find_by_params(params)
+    assert_instance_of User, user
+    assert_equal users(:testuser1).id, user.id
+    assert_equal users(:testuser1).username, user.username
+  end
+
   test "authenticate" do
     assert_nil User.authenticate('00001', '')
     assert_nil User.authenticate('00001', Digest::SHA1.hexdigest('testuser'))
@@ -37,9 +55,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "save!" do
-    user = User.create!({
+    user = User.new({
       username: 'testuser1', password: 'testuser1', password_confirmation: 'testuser1'
     })
+    user.save!
     assert_not_equal 'testuser1', user.password
     assert_equal Digest::SHA1.hexdigest('testuser1'), user.password
   end

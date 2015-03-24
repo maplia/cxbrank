@@ -1,8 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-testuser1_dirtymouth:
-  user: testuser1
-  music: dirtymouth
-  comment: comment
-  best_difficulty: 3
-  best_rp: 50.0

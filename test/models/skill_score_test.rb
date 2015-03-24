@@ -9,9 +9,8 @@ class SkillScoreTest < ActiveSupport::TestCase
   test "default" do
     score = SkillScore.default(@music_score)
     assert_instance_of SkillScore, score
-    assert_equal @music_score.difficulty, score.difficulty
+    assert_instance_of MusicScore, score.music_score
     assert_equal @music_score, score.music_score
-    assert_equal @music_score.level, score.music_score.level
     assert !score.locked
     assert !score.ultimate
     assert_nil score.rp
@@ -23,11 +22,44 @@ class SkillScoreTest < ActiveSupport::TestCase
   test "calc!" do
     score = SkillScore.new({music_score: @music_score, ultimate: false, rp: nil, rate: 97})
     score.calc!
-    assert_equal 75.36, score.rp  # (77.7 * 0.97 * 1.0).truncate(2)
+    assert_equal BigDecimal.new((77.7 * 0.97 * 1.0).to_s).truncate(2), score.rp
 
     score = SkillScore.new({music_score: @music_score, ultimate: true, rp: nil, rate: 97})
     score.calc!
-    assert_equal 90.44, score.rp  # (77.7 * 0.97 * 1.2).truncate(2)
+    assert_equal BigDecimal.new((77.7 * 0.97 * 1.2).to_s).truncate(2), score.rp
+  end
+
+  test "cleared?" do
+    score = SkillScore.new({status: PLAY_STATUSES[:cleared][:value]})
+    assert score.cleared?
+
+    score = SkillScore.new({status: PLAY_STATUSES[:failed][:value]})
+    assert !score.cleared?
+
+    score = SkillScore.new({status: PLAY_STATUSES[:noplay][:value]})
+    assert !score.cleared?
+  end
+
+  test "fullcombo?" do
+    score = SkillScore.new({combo: COMBO_STATUSES[0][1]})
+    assert !score.fullcombo?
+
+    score = SkillScore.new({combo: COMBO_STATUSES[1][1]})
+    assert score.fullcombo?
+
+    score = SkillScore.new({combo: COMBO_STATUSES[2][1]})
+    assert score.fullcombo?
+  end
+
+  test "excellent?" do
+    score = SkillScore.new({combo: COMBO_STATUSES[0][1]})
+    assert !score.excellent?
+
+    score = SkillScore.new({combo: COMBO_STATUSES[1][1]})
+    assert !score.excellent?
+
+    score = SkillScore.new({combo: COMBO_STATUSES[2][1]})
+    assert score.excellent?
   end
 
   test "ultimate_rate" do

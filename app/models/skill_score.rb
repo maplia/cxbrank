@@ -24,9 +24,17 @@ class SkillScore < ActiveRecord::Base
       self.rp = BigDecimal.new(temp_rp.to_s).truncate(2)
     end
   end
-  
+
   def cleared?
     status == PLAY_STATUSES[:cleared][:value]
+  end
+
+  def fullcombo?
+    combo == COMBO_STATUSES[1][1] or combo == COMBO_STATUSES[2][1]
+  end
+
+  def excellent?
+    combo == COMBO_STATUSES[2][1]
   end
 
   def ultimate_rate
