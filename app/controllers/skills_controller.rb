@@ -62,7 +62,7 @@ class SkillsController < ApplicationController
       redirect_to edit_skill_path(music.text_id)
     else
       if session[:skill][:operation] == :create
-        skill = Skill.default(user, music, true)
+        skill = Skill.default(user, music)
       else
         skill = Skill.select_by_user_and_music(user, music)
       end
