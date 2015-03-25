@@ -10,16 +10,20 @@ class User < ActiveRecord::Base
   before_save :crypt_password!
 
   scope :current, ->(session) {find(session[:user_id].to_i)}
-  scope :find_by_params, ->(params) {find(params[:id].to_i)}
+  scope :find_by_params!, ->(params) {find(params[:id].to_i)}
 
   def self.authenticate(user_id, password)
-    return self.find_by(id: user_id.to_i, password: Digest::SHA1.hexdigest(password))
+    return self.find_by(id: user_id.to_i, password: crypt(password))
+  end
+
+  def self.crypt(string)
+    Digest::SHA1.hexdigest(string)
   end
 
   def crypt_password!
     if new_record? or changed.include?('password')
-      self.password = Digest::SHA1.hexdigest(password)
-      self.password_confirmation = Digest::SHA1.hexdigest(password_confirmation)
+      self.password = self.class.crypt(password)
+      self.password_confirmation = self.class.crypt(password_confirmation)
     end
   end
 end

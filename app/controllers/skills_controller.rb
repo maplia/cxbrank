@@ -8,7 +8,7 @@ class SkillsController < ApplicationController
 
   def edit
     @user = User.current(session)
-    music = Music.find_by_params(params)
+    music = Music.find_by_params!(params)
 
     @skill_old = Skill.select_by_user_and_music(@user, music)
     @skill = Marshal.load(Marshal.dump(@skill_old))
