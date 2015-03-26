@@ -5,11 +5,10 @@ class Skill < ActiveRecord::Base
   attr_accessor :target
 
   def self.select_by_user(user, options={})
-    bonus_music_ids = BonusMusic.past(options[:time]).pluck(:music_id)
     skills = includes(:music).includes(:skill_scores).where('user_id = ?', user.id).to_a
 
     skills.each do |skill|
-      skill.music.bonus = bonus_music_ids.include?(skill.music.id)
+      skill.music.time = options[:time]
       skill.skill_scores.each do |score|
         score.music_score = skill.music.score("difficulty#{score.difficulty}".to_sym)
       end
