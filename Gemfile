@@ -31,4 +31,9 @@ gem 'gretel'
 gem 'rails_autolink'
 
 # User-agent parse
-gem "rack-user_agent"
+gem 'rack-user_agent'
+
+# Excel Spreadsheet (.xlsx) generator/reader
+gem 'axlsx_rails'
+gem 'roo'
+  

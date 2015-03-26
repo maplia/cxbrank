@@ -18,6 +18,9 @@ Cxbrank::Application.routes.draw do
   resources :border, only: ['index', 'show']
 
   resources :skills, only: ['index', 'edit', 'update', 'destroy'] do
+    collection do
+      get 'download'
+    end
     member do
       post 'confirm'
       patch 'confirm'

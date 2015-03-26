@@ -1,0 +1,30 @@
+book = xlsx_package.workbook
+book.add_worksheet(name: 'ランクポイント入力表') do |sheet|
+  styles = book.styles
+  style_hash = {}
+  style_hash[:th] = styles.add_style(
+    bg_color: 'ddffdd', alignment: {horizontal: :center}, b: true)
+  style_hash[:title] = styles.add_style(
+    bg_color: 'ffffff', alignment: {vertical: :center})
+  style_hash[:difficulty1] = styles.add_style(bg_color: 'ddffdd')
+  style_hash[:difficulty2] = styles.add_style(bg_color: 'ffffcc')
+  style_hash[:difficulty3] = styles.add_style(bg_color: 'ffcccc')
+
+  sheet.add_row [
+    '#', 'タイトル', '難易度',
+  ], style: style_hash[:th]
+
+  @skills.sort! {|a, b| a.music.number <=> b.music.number}
+
+  @skills.each do |skill|
+    skill.skill_scores.each do |score|
+      difficulty = "difficulty#{score.difficulty}".to_sym
+    
+      sheet.add_row [
+        skill.music.number,
+        [skill.music.title, skill.music.subtitle].join(' '),
+        DIFFICULTIES[difficulty][:abbr],
+      ], style: [style_hash[:th], style_hash[:title], style_hash[difficulty]]
+    end
+  end
+end

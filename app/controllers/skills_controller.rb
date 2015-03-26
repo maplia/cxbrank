@@ -108,6 +108,17 @@ class SkillsController < ApplicationController
     end
   end
 
+  def download
+    user = User.current(session)
+    @skills = Skill.select_by_user(user)
+
+    respond_to do |format|
+      format.xlsx do
+        response.headers['Content-Disposition'] = 'attachment; filename=cxbrank.xlsx'
+      end
+    end
+  end
+
   private
   def load_skill_params(skill)
     if session[:skill]
