@@ -1,6 +1,12 @@
+@skills.sort! {|a, b| a.music.number <=> b.music.number}
+
 book = xlsx_package.workbook
 
 styles = {}
+textlists = {}
+datasources = {}
+validators = {}
+
 styles[:th] = book.styles.add_style(
   bg_color: 'ddffdd', alignment: {horizontal: :center}, b: true)
 styles[:title] = book.styles.add_style(
@@ -9,34 +15,39 @@ styles[:difficulty1] = book.styles.add_style(bg_color: 'ddffdd')
 styles[:difficulty2] = book.styles.add_style(bg_color: 'ffffcc')
 styles[:difficulty3] = book.styles.add_style(bg_color: 'ffcccc')
 
-validators = {}
-book.add_worksheet(name: 'status_master', state: :very_hidden) do |sheet|
+book.add_worksheet(name: 'status', state: :very_hidden) do |sheet|
   PLAY_STATUSES.each_value do |data|
     sheet.add_row [data[:text], data[:value]]
   end
+  textlists[:status] = "#{sheet.name}!A1:A#{sheet.rows.size}"
+  datasources[:status] = "#{sheet.name}!A1:B#{sheet.rows.size}"
   validators[:status] = {
     type: :list,
-    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    formula1: textlists[:status],
     showDropDown: false,
   }
 end
-book.add_worksheet(name: 'grade_master', state: :very_hidden) do |sheet|
+book.add_worksheet(name: 'grade', state: :very_hidden) do |sheet|
   GRADE_STATUSES.each do |grade|
     sheet.add_row [grade[0], grade[1]]
   end
+  textlists[:grade] = "#{sheet.name}!A1:A#{sheet.rows.size}"
+  datasources[:grade] = "#{sheet.name}!A1:B#{sheet.rows.size}"
   validators[:grade] = {
     type: :list,
-    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    formula1: textlists[:grade],
     showDropDown: false,
   }
 end
-book.add_worksheet(name: 'combo_master', state: :very_hidden) do |sheet|
+book.add_worksheet(name: 'combo', state: :very_hidden) do |sheet|
   COMBO_STATUSES.each do |combo|
     sheet.add_row [combo[0], combo[1]]
   end
+  textlists[:combo] = "#{sheet.name}!A1:A#{sheet.rows.size}"
+  datasources[:combo] = "#{sheet.name}!A1:B#{sheet.rows.size}"
   validators[:combo] = {
     type: :list,
-    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    formula1: textlists[:combo],
     showDropDown: false,
   }
 end
@@ -55,8 +66,6 @@ book.add_worksheet(name: 'ランクポイント入力表') do |sheet|
     'RP', 'Rate', 'ランク', 'コンボ', 'ULTIMATE',
   ], style: styles[:th]
 
-  @skills.sort! {|a, b| a.music.number <=> b.music.number}
-
   @skills.each do |skill|
     skill.skill_scores.each do |score|
       difficulty = "difficulty#{score.difficulty}".to_sym
@@ -65,11 +74,37 @@ book.add_worksheet(name: 'ランクポイント入力表') do |sheet|
         skill.music.number,
         [skill.music.title, skill.music.subtitle].join(' '),
         DIFFICULTIES[difficulty][:abbr],
-      ], style: [styles[:th], styles[:title], styles[difficulty]]
+        PLAY_STATUSES.select {|k, v| v[:value] == score.status}.values[0][:text],
+        score.locked, score.rp, score.rate,
+        GRADE_STATUSES.rassoc(score.grade)[0], COMBO_STATUSES.rassoc(score.combo)[0],
+        score.ultimate,
+      ], style: [
+        styles[:th], styles[:title],
+        styles[difficulty], styles[difficulty], styles[difficulty],
+        styles[difficulty], styles[difficulty], styles[difficulty], styles[difficulty],
+      ]
 
       sheet.add_data_validation("D#{sheet.rows.size}", validators[:status])
       sheet.add_data_validation("H#{sheet.rows.size}", validators[:grade])
       sheet.add_data_validation("I#{sheet.rows.size}", validators[:combo])
+    end
+  end
+end
+
+book.add_worksheet(name: 'projection', state: :very_hidden) do |sheet|
+  @skills.each do |skill|
+    skill.skill_scores.each do |score|
+      inputed_row = sheet.rows.size + 2
+      sheet.add_row [
+        skill.music.id, score.difficulty,
+        "=VLOOKUP(ランクポイント入力表!D#{inputed_row},#{datasources[:status]},2,FALSE)",
+        "=ランクポイント入力表!E#{inputed_row}",
+        "=ランクポイント入力表!F#{inputed_row}",
+        "=ランクポイント入力表!G#{inputed_row}",
+        "=VLOOKUP(ランクポイント入力表!H#{inputed_row},#{datasources[:grade]},2,FALSE)",
+        "=VLOOKUP(ランクポイント入力表!I#{inputed_row},#{datasources[:combo]},2,FALSE)",
+        "=ランクポイント入力表!J#{inputed_row}",
+      ]
     end
   end
 end
