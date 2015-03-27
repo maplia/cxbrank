@@ -1,30 +1,75 @@
 book = xlsx_package.workbook
+
+styles = {}
+styles[:th] = book.styles.add_style(
+  bg_color: 'ddffdd', alignment: {horizontal: :center}, b: true)
+styles[:title] = book.styles.add_style(
+  bg_color: 'ffffff', alignment: {vertical: :center})
+styles[:difficulty1] = book.styles.add_style(bg_color: 'ddffdd')
+styles[:difficulty2] = book.styles.add_style(bg_color: 'ffffcc')
+styles[:difficulty3] = book.styles.add_style(bg_color: 'ffcccc')
+
+validators = {}
+book.add_worksheet(name: 'status_master', state: :very_hidden) do |sheet|
+  PLAY_STATUSES.each_value do |data|
+    sheet.add_row [data[:text], data[:value]]
+  end
+  validators[:status] = {
+    type: :list,
+    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    showDropDown: false,
+  }
+end
+book.add_worksheet(name: 'grade_master', state: :very_hidden) do |sheet|
+  GRADE_STATUSES.each do |grade|
+    sheet.add_row [grade[0], grade[1]]
+  end
+  validators[:grade] = {
+    type: :list,
+    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    showDropDown: false,
+  }
+end
+book.add_worksheet(name: 'combo_master', state: :very_hidden) do |sheet|
+  COMBO_STATUSES.each do |combo|
+    sheet.add_row [combo[0], combo[1]]
+  end
+  validators[:combo] = {
+    type: :list,
+    formula1: "#{sheet.name}!A1:A#{sheet.rows.size}",
+    showDropDown: false,
+  }
+end
+
 book.add_worksheet(name: 'ランクポイント入力表') do |sheet|
-  styles = book.styles
-  style_hash = {}
-  style_hash[:th] = styles.add_style(
-    bg_color: 'ddffdd', alignment: {horizontal: :center}, b: true)
-  style_hash[:title] = styles.add_style(
-    bg_color: 'ffffff', alignment: {vertical: :center})
-  style_hash[:difficulty1] = styles.add_style(bg_color: 'ddffdd')
-  style_hash[:difficulty2] = styles.add_style(bg_color: 'ffffcc')
-  style_hash[:difficulty3] = styles.add_style(bg_color: 'ffcccc')
+  sheet.sheet_view.pane do |pane|
+    pane.top_left_cell = 'A2'
+    pane.state = :frozen_split
+    pane.y_split = 1
+    pane.active_pane = :bottom_right
+  end
 
   sheet.add_row [
     '#', 'タイトル', '難易度',
-  ], style: style_hash[:th]
+    'クリア状態', 'ロック状態',
+    'RP', 'Rate', 'ランク', 'コンボ', 'ULTIMATE',
+  ], style: styles[:th]
 
   @skills.sort! {|a, b| a.music.number <=> b.music.number}
 
   @skills.each do |skill|
     skill.skill_scores.each do |score|
       difficulty = "difficulty#{score.difficulty}".to_sym
-    
+
       sheet.add_row [
         skill.music.number,
         [skill.music.title, skill.music.subtitle].join(' '),
         DIFFICULTIES[difficulty][:abbr],
-      ], style: [style_hash[:th], style_hash[:title], style_hash[difficulty]]
+      ], style: [styles[:th], styles[:title], styles[difficulty]]
+
+      sheet.add_data_validation("D#{sheet.rows.size}", validators[:status])
+      sheet.add_data_validation("H#{sheet.rows.size}", validators[:grade])
+      sheet.add_data_validation("I#{sheet.rows.size}", validators[:combo])
     end
   end
 end
