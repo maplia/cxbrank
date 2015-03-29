@@ -6,3 +6,27 @@
 <%= render 'shared/user', user: @user, edit: true %>
 
 <%= render 'shared/skill_set', skill_set: @skill_set, edit: true %>
+
+<div class="unit">
+  <h2>Excelダウンロード（エクスポート）</h2>
+  <div class="subunit">
+    <p><%= link_to 'ダウンロード', download_skills_url(format: :xlsx) %></p>
+  </div>
+</div>
+
+<div class="unit">
+  <script>
+    $(function() {
+      $('#file').on('change', function() {
+        $('#upload').prop('disabled', $('#file').name != undefined);
+      });
+    });
+  </script>
+  <h2>Excelアップロード（インポート）</h2>
+  <div class="subunit">
+    <%= form_tag(upload_skills_url, multipart: true) do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag 'アップロード', id: 'upload', disabled: :file, disable_with: 'アップロード中...' %>
+    <% end %>
+  </div>
+</div>

@@ -12,7 +12,7 @@ class SkillsController < ApplicationController
 
     @skill_old = Skill.select_by_user_and_music(@user, music)
     @skill = Marshal.load(Marshal.dump(@skill_old))
-    load_skill_params(@skill) if session[:skill]
+    load_skill_params(@skill) if session[:skill][:params]
 
     session[:skill] = {}
     session[:skill][:music_id] = music.id
